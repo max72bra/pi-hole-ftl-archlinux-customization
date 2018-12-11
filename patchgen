@@ -38,3 +38,4 @@ sed -i "s|/var/run/pihole/|/run/pihole-ftl/|w $_ssc" "$dira"/config.c
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: setting up logs paths 3" && exit 1 ; fi
 
 diff -uprN $dirb $dira > arch-ftl-$pkgver.patch
+git add arch-ftl-$pkgver.patch
