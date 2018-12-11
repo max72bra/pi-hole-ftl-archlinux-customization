@@ -1,6 +1,6 @@
-diff -uprN FTL-4.1.cust/Makefile FTL-4.1/Makefile
---- FTL-4.1.cust/Makefile	2018-12-09 21:21:03.000000000 +0100
-+++ FTL-4.1/Makefile	2018-12-11 09:23:29.270235975 +0100
+diff -uprN FTL-4.1/Makefile FTL-4.1.cust/Makefile
+--- FTL-4.1/Makefile	2018-12-09 21:21:03.000000000 +0100
++++ FTL-4.1.cust/Makefile	2018-12-11 09:52:13.702119234 +0100
 @@ -20,11 +20,11 @@ DNSMASQDEPS = config.h dhcp-protocol.h d
  DNSMASQOBJ = arp.o dbus.o domain.o lease.o outpacket.o rrfilter.o auth.o dhcp6.o edns0.o log.o poll.o slaac.o blockdata.o dhcp.o forward.o loop.o radv.o tables.o bpf.o dhcp-common.o helper.o netlink.o rfc1035.o tftp.o cache.o dnsmasq.o inotify.o network.o rfc2131.o util.o conntrack.o dnssec.o ipset.o option.o rfc3315.o crypto.o
  
@@ -27,9 +27,9 @@ diff -uprN FTL-4.1.cust/Makefile FTL-4.1/Makefile
  # Flags for compiling with libidn : -lidn
  # Flags for compiling with libidn2: -lidn2
  
-diff -uprN FTL-4.1.cust/config.c FTL-4.1/config.c
---- FTL-4.1.cust/config.c	2018-12-09 21:21:03.000000000 +0100
-+++ FTL-4.1/config.c	2018-12-11 09:23:29.280235945 +0100
+diff -uprN FTL-4.1/config.c FTL-4.1.cust/config.c
+--- FTL-4.1/config.c	2018-12-09 21:21:03.000000000 +0100
++++ FTL-4.1.cust/config.c	2018-12-11 09:52:13.712119207 +0100
 @@ -31,7 +31,7 @@ void getLogFilePath(void)
  	}
  

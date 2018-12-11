@@ -13,29 +13,29 @@ tar xf v$pkgver.tar.gz
 cp -a $dira $dirb
 
 # makefile disable static linking
-sed -n "/LIBS=-pthread -Wl,/w $_ssc" "$dira"/Makefile
+sed -n "/LIBS=-pthread -Wl,/w $_ssc" "$dirb"/Makefile
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: makefile disable static linking 1" && exit 1 ; fi
-sed -i '/LIBS=-pthread -Wl,/d' "$dira"/Makefile
-sed -i "s|#LIBS=-pthread -lnettle|LIBS=-pthread -lnettle|w $_ssc" "$dira"/Makefile
+sed -i '/LIBS=-pthread -Wl,/d' "$dirb"/Makefile
+sed -i "s|#LIBS=-pthread -lnettle|LIBS=-pthread -lnettle|w $_ssc" "$dirb"/Makefile
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: makefile disable static linking 2" && exit 1 ; fi
 
 # git descriptions setup
-sed -i "s|^GIT_BRANCH := .*$|GIT_BRANCH := master|w $_ssc" "$dira"/Makefile
+sed -i "s|^GIT_BRANCH := .*$|GIT_BRANCH := master|w $_ssc" "$dirb"/Makefile
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: git descriptions setup 1" && exit 1 ; fi
-sed -i "s|^GIT_VERSION := .*$|GIT_VERSION := v$pkgver|w $_ssc" "$dira"/Makefile
+sed -i "s|^GIT_VERSION := .*$|GIT_VERSION := v$pkgver|w $_ssc" "$dirb"/Makefile
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: git descriptions setup 2" && exit 1 ; fi
-sed -i "s|^GIT_DATE := .*$|GIT_DATE := $(date -I)|w $_ssc" "$dira"/Makefile
+sed -i "s|^GIT_DATE := .*$|GIT_DATE := $(date -I)|w $_ssc" "$dirb"/Makefile
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: git descriptions setup 3" && exit 1 ; fi
-sed -i "s|^GIT_TAG := .*$|GIT_TAG := v$pkgver|w $_ssc" "$dira"/Makefile
+sed -i "s|^GIT_TAG := .*$|GIT_TAG := v$pkgver|w $_ssc" "$dirb"/Makefile
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: git descriptions setup 4" && exit 1 ; fi
 
 # setting up logs paths
-sed -i "s|/var/log/pihole-FTL.log|/run/log/pihole-ftl/pihole-FTL.log|w $_ssc" "$dira"/config.c
+sed -i "s|/var/log/pihole-FTL.log|/run/log/pihole-ftl/pihole-FTL.log|w $_ssc" "$dirb"/config.c
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: setting up logs paths 1" && exit 1 ; fi
-sed -i "s|/var/run/pihole-FTL|/run/pihole-ftl/pihole-FTL|w $_ssc" "$dira"/config.c
+sed -i "s|/var/run/pihole-FTL|/run/pihole-ftl/pihole-FTL|w $_ssc" "$dirb"/config.c
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: setting up logs paths 2" && exit 1 ; fi
-sed -i "s|/var/run/pihole/|/run/pihole-ftl/|w $_ssc" "$dira"/config.c
+sed -i "s|/var/run/pihole/|/run/pihole-ftl/|w $_ssc" "$dirb"/config.c
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: setting up logs paths 3" && exit 1 ; fi
 
-diff -uprN $dirb $dira > arch-ftl-$pkgver.patch
+diff -uprN $dira $dirb > arch-ftl-$pkgver.patch
 git add arch-ftl-$pkgver.patch
