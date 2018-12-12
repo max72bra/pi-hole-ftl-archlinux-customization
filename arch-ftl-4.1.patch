@@ -1,6 +1,6 @@
 diff -uprN FTL-4.1/Makefile FTL-4.1.cust/Makefile
 --- FTL-4.1/Makefile	2018-12-09 21:21:03.000000000 +0100
-+++ FTL-4.1.cust/Makefile	2018-12-11 09:52:13.702119234 +0100
++++ FTL-4.1.cust/Makefile	2018-12-12 08:51:26.836677795 +0100
 @@ -20,11 +20,11 @@ DNSMASQDEPS = config.h dhcp-protocol.h d
  DNSMASQOBJ = arp.o dbus.o domain.o lease.o outpacket.o rrfilter.o auth.o dhcp6.o edns0.o log.o poll.o slaac.o blockdata.o dhcp.o forward.o loop.o radv.o tables.o bpf.o dhcp-common.o helper.o netlink.o rfc1035.o tftp.o cache.o dnsmasq.o inotify.o network.o rfc2131.o util.o conntrack.o dnssec.o ipset.o option.o rfc3315.o crypto.o
  
@@ -12,7 +12,7 @@ diff -uprN FTL-4.1/Makefile FTL-4.1.cust/Makefile
 -GIT_DATE := $(shell git --no-pager show --date=short --format="%ai" --name-only | head -n 1)
 -GIT_TAG := $(shell git describe --tags --abbrev=0)
 +GIT_VERSION := v4.1
-+GIT_DATE := 2018-12-11
++GIT_DATE := 2018-12-12
 +GIT_TAG := v4.1
  
  # -fstack-protector: The program will be resistant to having its stack overflowed
@@ -29,7 +29,7 @@ diff -uprN FTL-4.1/Makefile FTL-4.1.cust/Makefile
  
 diff -uprN FTL-4.1/config.c FTL-4.1.cust/config.c
 --- FTL-4.1/config.c	2018-12-09 21:21:03.000000000 +0100
-+++ FTL-4.1.cust/config.c	2018-12-11 09:52:13.712119207 +0100
++++ FTL-4.1.cust/config.c	2018-12-12 08:51:26.843344269 +0100
 @@ -31,7 +31,7 @@ void getLogFilePath(void)
  	}
  

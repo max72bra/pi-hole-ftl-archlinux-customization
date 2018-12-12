@@ -7,7 +7,10 @@ dirb="$dira.cust"
 
 _ssc="/tmp/sedcontrol"
 
-wget $source
+[[ -d $dira ]] && rm -r $dira
+[[ -d $dirb ]] && rm -r $dirb
+
+wget -q -nc $source
 tar xf v$pkgver.tar.gz
 cp -a $dira $dirb
 
