@@ -41,3 +41,4 @@ if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: setting up logs p
 
 diff -uprN $dira $dirb > arch-ftl-$pkgver.patch
 git add arch-ftl-$pkgver.patch
+git add patchgen
