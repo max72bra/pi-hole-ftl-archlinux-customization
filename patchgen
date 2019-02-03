@@ -18,7 +18,7 @@ cp -a $dira $dirb
 sed -n "/LIBS=-pthread -Wl,/w $_ssc" "$dirb"/Makefile
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: makefile disable static linking 1" && exit 1 ; fi
 sed -i '/LIBS=-pthread -Wl,/d' "$dirb"/Makefile
-sed -i "s|#LIBS=-pthread -lnettle|LIBS=-pthread -lnettle|w $_ssc" "$dirb"/Makefile
+sed -i "s|#LIBS=-pthread -lnettle|LIBS=-pthread -lnettle -lrt|w $_ssc" "$dirb"/Makefile
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: makefile disable static linking 2" && exit 1 ; fi
 
 # git descriptions setup
