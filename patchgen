@@ -1,6 +1,6 @@
 #!/bin/sh
 
-pkgver=4.2.3
+pkgver=4.3
 source="https://github.com/pi-hole/FTL/archive/v$pkgver.tar.gz"
 dira="FTL-$pkgver"
 dirb="$dira.cust"
@@ -14,12 +14,9 @@ wget -q -nc $source
 tar xf v$pkgver.tar.gz
 cp -a $dira $dirb
 
-# makefile disable static linking
-sed -n "/LIBS=-pthread -Wl,/w $_ssc" "$dirb"/Makefile
-if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: makefile disable static linking 1" && exit 1 ; fi
-sed -i '/LIBS=-pthread -Wl,/d' "$dirb"/Makefile
-sed -i "s|#LIBS=-pthread -lnettle|LIBS=-pthread -lnettle -lrt|w $_ssc" "$dirb"/Makefile
-if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: makefile disable static linking 2" && exit 1 ; fi
+# makefile setup
+sed -i "s|/usr/local/lib|/usr/lib|w $_ssc" "$dirb"/Makefile
+if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: makefile setup 1" && exit 1 ; fi
 
 # git descriptions setup
 sed -i "s|^GIT_BRANCH := .*$|GIT_BRANCH := master|w $_ssc" "$dirb"/Makefile
