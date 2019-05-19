@@ -1,6 +1,6 @@
 diff -uprN FTL-4.3/Makefile FTL-4.3.cust/Makefile
 --- FTL-4.3/Makefile	2019-05-18 22:00:39.000000000 +0200
-+++ FTL-4.3.cust/Makefile	2019-05-19 08:43:43.427762182 +0200
++++ FTL-4.3.cust/Makefile	2019-05-19 09:02:48.113749228 +0200
 @@ -20,11 +20,11 @@ DNSMASQDEPS = config.h dhcp-protocol.h d
  DNSMASQOBJ = arp.o dbus.o domain.o lease.o outpacket.o rrfilter.o auth.o dhcp6.o edns0.o log.o poll.o slaac.o blockdata.o dhcp.o forward.o loop.o radv.o tables.o bpf.o dhcp-common.o helper.o netlink.o rfc1035.o tftp.o cache.o dnsmasq.o inotify.o network.o rfc2131.o util.o conntrack.o dnssec.o ipset.o option.o rfc3315.o crypto.o dump.o ubus.o metrics.o
  
@@ -17,18 +17,19 @@ diff -uprN FTL-4.3/Makefile FTL-4.3.cust/Makefile
  
  # Is compiler at least gcc version 8? We cannot do ifgt in Makefile, so we use the shell expr command
  GCCVERSION8 := $(shell expr `$(CC) -dumpversion | cut -f1 -d.` \>= 8)
-@@ -98,7 +98,7 @@ CCFLAGS=-std=gnu11 -I$(IDIR) $(WARNFLAGS
+@@ -97,8 +97,7 @@ CCFLAGS=-std=gnu11 -I$(IDIR) $(WARNFLAGS
+ # for FTL we need the pthread library
  # for dnsmasq we need the nettle crypto library and the gmp maths library
  # We link the two libraries statically. Although this increases the binary file size by about 1 MB, it saves about 5 MB of shared libraries and makes deployment easier
- #LIBS=-pthread -lnettle -lgmp -lhogweed
+-#LIBS=-pthread -lnettle -lgmp -lhogweed
 -LIBS=-pthread -lrt -Wl,-Bstatic -L/usr/local/lib -lhogweed -lgmp -lnettle -Wl,-Bdynamic
-+LIBS=-pthread -lrt -Wl,-Bstatic -L/usr/lib -lhogweed -lgmp -lnettle -Wl,-Bdynamic
++LIBS=-pthread -lnettle -lrt -lgmp -lhogweed
  # Flags for compiling with libidn : -lidn
  # Flags for compiling with libidn2: -lidn2
  
 diff -uprN FTL-4.3/config.c FTL-4.3.cust/config.c
 --- FTL-4.3/config.c	2019-05-18 22:00:39.000000000 +0200
-+++ FTL-4.3.cust/config.c	2019-05-19 08:43:43.434428804 +0200
++++ FTL-4.3.cust/config.c	2019-05-19 09:02:48.120415853 +0200
 @@ -31,7 +31,7 @@ void getLogFilePath(void)
  	}
  
