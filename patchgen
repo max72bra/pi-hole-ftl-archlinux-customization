@@ -14,6 +14,10 @@ wget -q -nc $source
 tar xf v$pkgver.tar.gz
 cp -a $dira $dirb
 
+# makefile gcc 9
+sed -i "s|EXTRAWARN=-Werror -Waddress|EXTRAWARN=-Waddress|w $_ssc" "$dirb"/Makefile
+if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> makefile gcc 9 1" && exit 1 ; fi
+
 # makefile disable static linking
 sed -n "/^LIBS=-pthread -lrt -Wl,/w $_ssc" "$dirb"/Makefile
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: makefile disable static linking 1" && exit 1 ; fi

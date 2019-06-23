@@ -1,6 +1,6 @@
 diff -uprN FTL-4.3.1/Makefile FTL-4.3.1.cust/Makefile
 --- FTL-4.3.1/Makefile	2019-05-25 21:37:26.000000000 +0200
-+++ FTL-4.3.1.cust/Makefile	2019-05-26 09:17:11.961708334 +0200
++++ FTL-4.3.1.cust/Makefile	2019-06-23 09:28:05.674575001 +0200
 @@ -20,11 +20,11 @@ DNSMASQDEPS = config.h dhcp-protocol.h d
  DNSMASQOBJ = arp.o dbus.o domain.o lease.o outpacket.o rrfilter.o auth.o dhcp6.o edns0.o log.o poll.o slaac.o blockdata.o dhcp.o forward.o loop.o radv.o tables.o bpf.o dhcp-common.o helper.o netlink.o rfc1035.o tftp.o cache.o dnsmasq.o inotify.o network.o rfc2131.o util.o conntrack.o dnssec.o ipset.o option.o rfc3315.o crypto.o dump.o ubus.o metrics.o
  
@@ -12,11 +12,20 @@ diff -uprN FTL-4.3.1/Makefile FTL-4.3.1.cust/Makefile
 -GIT_DATE := $(shell git --no-pager show --date=short --format="%ai" --name-only | head -n 1)
 -GIT_TAG := $(shell git describe --tags --abbrev=0)
 +GIT_VERSION := v4.3.1
-+GIT_DATE := 2019-05-26
++GIT_DATE := 2019-06-23
 +GIT_TAG := v4.3.1
  
  # Is compiler at least gcc version 8? We cannot do ifgt in Makefile, so we use the shell expr command
  GCCVERSION8 := $(shell expr `$(CC) -dumpversion | cut -f1 -d.` \>= 8)
+@@ -88,7 +88,7 @@ ifeq "$(GCCVERSION8)" "1"
+ else
+   EXTRAWARNGCC8=
+ endif
+-EXTRAWARN=-Werror -Waddress -Wlogical-op -Wmissing-field-initializers -Woverlength-strings -Wformat -Wformat-nonliteral -Wuninitialized -Wswitch-enum -Wshadow \
++EXTRAWARN=-Waddress -Wlogical-op -Wmissing-field-initializers -Woverlength-strings -Wformat -Wformat-nonliteral -Wuninitialized -Wswitch-enum -Wshadow \
+ -Wfloat-equal -Wunsafe-loop-optimizations -funsafe-loop-optimizations -Wbad-function-cast -Wwrite-strings -Wparentheses -Wlogical-op -Wstrict-prototypes -Wmissing-prototypes -Wredundant-decls -Winline $(EXTRAWARNGCC8)
+ 
+ # -FILE_OFFSET_BITS=64: used by stat(). Avoids problems with files > 2 GB on 32bit machines
 @@ -97,8 +97,7 @@ CCFLAGS=-std=gnu11 -I$(IDIR) $(WARNFLAGS
  # for FTL we need the pthread library
  # for dnsmasq we need the nettle crypto library and the gmp maths library
@@ -29,7 +38,7 @@ diff -uprN FTL-4.3.1/Makefile FTL-4.3.1.cust/Makefile
  
 diff -uprN FTL-4.3.1/config.c FTL-4.3.1.cust/config.c
 --- FTL-4.3.1/config.c	2019-05-25 21:37:26.000000000 +0200
-+++ FTL-4.3.1.cust/config.c	2019-05-26 09:17:11.968374884 +0200
++++ FTL-4.3.1.cust/config.c	2019-06-23 09:28:05.687908290 +0200
 @@ -31,7 +31,7 @@ void getLogFilePath(void)
  	}
  
