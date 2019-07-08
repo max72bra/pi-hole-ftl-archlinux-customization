@@ -14,12 +14,6 @@ wget -q -nc $source
 tar xf v$pkgver.tar.gz
 cp -a $dira $dirb
 
-# nettle 3.5
-sed -i "s|nettle_secp_256r1|nettle_get_secp_256r1|w $_ssc" "$dirb"/dnsmasq/crypto.c
-if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> nettle 3.5 1" && exit 1 ; fi
-sed -i "s|nettle_secp_384r1|nettle_get_secp_384r1|w $_ssc" "$dirb"/dnsmasq/crypto.c
-if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> nettle 3.5 2" && exit 1 ; fi
-
 # makefile gcc 9
 sed -i "s|EXTRAWARN=-Werror -Waddress|EXTRAWARN=-Waddress|w $_ssc" "$dirb"/Makefile
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> makefile gcc 9 1" && exit 1 ; fi
