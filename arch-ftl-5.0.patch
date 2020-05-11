@@ -1,6 +1,6 @@
 diff -uprN FTL-5.0/Makefile FTL-5.0.cust/Makefile
 --- FTL-5.0/Makefile	2020-05-10 19:58:38.000000000 +0200
-+++ FTL-5.0.cust/Makefile	2020-05-11 11:30:28.458273536 +0200
++++ FTL-5.0.cust/Makefile	2020-05-11 11:48:02.357476785 +0200
 @@ -28,11 +28,11 @@ DNSMASQ_OBJ = arp.o dbus.o domain.o leas
                util.o conntrack.o dnssec.o ipset.o option.o rfc3315.o crypto.o dump.o ubus.o metrics.o
  
@@ -31,13 +31,13 @@ diff -uprN FTL-5.0/Makefile FTL-5.0.cust/Makefile
  # for dnsmasq we need the nettle crypto library and the gmp maths library
  # We link the two libraries statically. Although this increases the binary file size by about 1 MB, it saves about 5 MB of shared libraries and makes deployment easier
 -LIBS=-pthread -lrt -Wl,-Bstatic -L/usr/local/lib -lhogweed -lgmp -lnettle
-+LIBS=-pthread -lnettle -lrt -lgmp -lhogweed
++LIBS=-pthread -lrt -lhogweed -lgmp -lnettle
  # Flags for compiling with libidn : -lidn
  # Flags for compiling with libidn2: -lidn2
  
 diff -uprN FTL-5.0/src/config.c FTL-5.0.cust/src/config.c
 --- FTL-5.0/src/config.c	2020-05-10 19:58:38.000000000 +0200
-+++ FTL-5.0.cust/src/config.c	2020-05-11 11:30:28.466273552 +0200
++++ FTL-5.0.cust/src/config.c	2020-05-11 11:48:02.362476789 +0200
 @@ -54,7 +54,7 @@ void getLogFilePath(void)
  	}
  

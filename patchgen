@@ -22,7 +22,7 @@ if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> makefile gcc 9 1" && exit 1 
 sed -n "/^LIBS=-pthread -lrt -Wl,/w $_ssc" "$dirb"/Makefile
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: makefile disable static linking 1" && exit 1 ; fi
 #sed -i '/^LIBS=-pthread -lrt -Wl,/d' "$dirb"/Makefile
-sed -i "s|LIBS=-pthread -lrt -Wl,-Bstatic -L/usr/local/lib -lhogweed -lgmp -lnettle|LIBS=-pthread -lnettle -lrt -lgmp -lhogweed|w $_ssc" "$dirb"/Makefile
+sed -i "s|LIBS=-pthread -lrt -Wl,-Bstatic -L/usr/local/lib -lhogweed -lgmp -lnettle|LIBS=-pthread -lrt -lhogweed -lgmp -lnettle|w $_ssc" "$dirb"/Makefile
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: makefile disable static linking 2" && exit 1 ; fi
 
 # git descriptions setup
