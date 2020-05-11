@@ -1,6 +1,6 @@
 #!/bin/sh
 
-pkgver=4.3.1
+pkgver=5.0
 source="https://github.com/pi-hole/FTL/archive/v$pkgver.tar.gz"
 dira="FTL-$pkgver"
 dirb="$dira.cust"
@@ -21,8 +21,8 @@ if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> makefile gcc 9 1" && exit 1 
 # makefile disable static linking
 sed -n "/^LIBS=-pthread -lrt -Wl,/w $_ssc" "$dirb"/Makefile
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: makefile disable static linking 1" && exit 1 ; fi
-sed -i '/^LIBS=-pthread -lrt -Wl,/d' "$dirb"/Makefile
-sed -i "s|#LIBS=-pthread -lnettle -lgmp -lhogweed|LIBS=-pthread -lnettle -lrt -lgmp -lhogweed|w $_ssc" "$dirb"/Makefile
+#sed -i '/^LIBS=-pthread -lrt -Wl,/d' "$dirb"/Makefile
+sed -i "s|LIBS=-pthread -lrt -Wl,-Bstatic -L/usr/local/lib -lhogweed -lgmp -lnettle|LIBS=-pthread -lnettle -lrt -lgmp -lhogweed|w $_ssc" "$dirb"/Makefile
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: makefile disable static linking 2" && exit 1 ; fi
 
 # git descriptions setup
@@ -36,11 +36,11 @@ sed -i "s|^GIT_TAG := .*$|GIT_TAG := v$pkgver|w $_ssc" "$dirb"/Makefile
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: git descriptions setup 4" && exit 1 ; fi
 
 # logs paths defaulted to tmpfs
-sed -i "s|/var/log/pihole-FTL.log|/run/log/pihole-ftl/pihole-FTL.log|w $_ssc" "$dirb"/config.c
+sed -i "s|/var/log/pihole-FTL.log|/run/log/pihole-ftl/pihole-FTL.log|w $_ssc" "$dirb"/src/config.c
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: logs paths defaulted to tmpfs 1" && exit 1 ; fi
-sed -i "s|/var/run/pihole-FTL|/run/pihole-ftl/pihole-FTL|w $_ssc" "$dirb"/config.c
+sed -i "s|/var/run/pihole-FTL|/run/pihole-ftl/pihole-FTL|w $_ssc" "$dirb"/src/config.c
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: logs paths defaulted to tmpfs 2" && exit 1 ; fi
-sed -i "s|/var/run/pihole/|/run/pihole-ftl/|w $_ssc" "$dirb"/config.c
+sed -i "s|/var/run/pihole/|/run/pihole-ftl/|w $_ssc" "$dirb"/src/config.c
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: logs paths defaulted to tmpfs 3" && exit 1 ; fi
 
 diff -uprN $dira $dirb > arch-ftl-$pkgver.patch
