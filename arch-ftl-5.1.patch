@@ -1,6 +1,6 @@
 diff -uprN FTL-5.1/src/CMakeLists.txt FTL-5.1.cust/src/CMakeLists.txt
 --- FTL-5.1/src/CMakeLists.txt	2020-07-15 23:26:33.000000000 +0200
-+++ FTL-5.1.cust/src/CMakeLists.txt	2020-07-17 17:06:11.728916049 +0200
++++ FTL-5.1.cust/src/CMakeLists.txt	2020-07-17 21:07:44.637004464 +0200
 @@ -172,10 +172,10 @@ set(CMAKE_THREAD_PREFER_PTHREAD TRUE)
  set(THREADS_PREFER_PTHREAD_FLAG TRUE)
  find_package(Threads REQUIRED)
@@ -18,7 +18,7 @@ diff -uprN FTL-5.1/src/CMakeLists.txt FTL-5.1.cust/src/CMakeLists.txt
  # for dnsmasq we need the nettle crypto library and the gmp maths library
 diff -uprN FTL-5.1/src/config.c FTL-5.1.cust/src/config.c
 --- FTL-5.1/src/config.c	2020-07-15 23:26:33.000000000 +0200
-+++ FTL-5.1.cust/src/config.c	2020-07-17 17:06:11.730916054 +0200
++++ FTL-5.1.cust/src/config.c	2020-07-17 21:07:44.639004466 +0200
 @@ -57,7 +57,7 @@ void getLogFilePath(void)
  	}
  
@@ -39,7 +39,7 @@ diff -uprN FTL-5.1/src/config.c FTL-5.1.cust/src/config.c
  	// Test if memory allocation was successful
 diff -uprN FTL-5.1/src/version.h.in FTL-5.1.cust/src/version.h.in
 --- FTL-5.1/src/version.h.in	2020-07-15 23:26:33.000000000 +0200
-+++ FTL-5.1.cust/src/version.h.in	2020-07-17 17:06:11.724916041 +0200
++++ FTL-5.1.cust/src/version.h.in	2020-07-17 21:07:44.635004463 +0200
 @@ -1,10 +1,10 @@
  #ifndef VERSION_H
  #define VERSION_H
@@ -48,10 +48,10 @@ diff -uprN FTL-5.1/src/version.h.in FTL-5.1.cust/src/version.h.in
 -#define GIT_DATE "@GIT_DATE@"
 -#define GIT_BRANCH "@GIT_BRANCH@"
 -#define GIT_TAG "@GIT_TAG@"
-+#define GIT_VERSION "v5.1"
++#define GIT_VERSION "5.1"
 +#define GIT_DATE "2020-07-17"
 +#define GIT_BRANCH "master"
-+#define GIT_TAG "v5.1"
++#define GIT_TAG "5.1"
  #define GIT_HASH "@GIT_HASH@"
  #define FTL_ARCH "@FTL_ARCH@"
  #define FTL_CC "@FTL_CC@"

@@ -17,13 +17,13 @@ cp -a $dira $dirb
 # git descriptions setup
 sed -i "s|@GIT_BRANCH@|master|w $_ssc" "$dirb"/src/version.h.in
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: git descriptions setup 1" && exit 1 ; fi
-sed -i "s|@GIT_VERSION@|v$pkgver|w $_ssc" "$dirb"/src/version.h.in
+sed -i "s|@GIT_VERSION@|$pkgver|w $_ssc" "$dirb"/src/version.h.in
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: git descriptions setup 2" && exit 1 ; fi
 sed -i "s|@GIT_DATE@|$(date -I)|w $_ssc" "$dirb"/src/version.h.in
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: git descriptions setup 3" && exit 1 ; fi
-sed -i "s|@GIT_TAG@|v$pkgver|w $_ssc" "$dirb"/src/version.h.in
+sed -i "s|@GIT_TAG@|$pkgver|w $_ssc" "$dirb"/src/version.h.in
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: git descriptions setup 4" && exit 1 ; fi
-#sed -i "s|@GIT_HASH@|v$pkgver|w $_ssc" "$dirb"/src/version.h.in
+#sed -i "s|@GIT_HASH@|$pkgver|w $_ssc" "$dirb"/src/version.h.in
 #if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: git descriptions setup 5" && exit 1 ; fi
 
 #cmake setup
