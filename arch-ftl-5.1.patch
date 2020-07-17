@@ -1,0 +1,57 @@
+diff -uprN FTL-5.1/src/CMakeLists.txt FTL-5.1.cust/src/CMakeLists.txt
+--- FTL-5.1/src/CMakeLists.txt	2020-07-15 23:26:33.000000000 +0200
++++ FTL-5.1.cust/src/CMakeLists.txt	2020-07-17 17:06:11.728916049 +0200
+@@ -172,10 +172,10 @@ set(CMAKE_THREAD_PREFER_PTHREAD TRUE)
+ set(THREADS_PREFER_PTHREAD_FLAG TRUE)
+ find_package(Threads REQUIRED)
+ 
+-find_library(HOGWEED libhogweed${CMAKE_STATIC_LIBRARY_SUFFIX})
+-find_library(GMP libgmp${CMAKE_STATIC_LIBRARY_SUFFIX})
+-find_library(NETTLE libnettle${CMAKE_STATIC_LIBRARY_SUFFIX})
+-find_library(IDN libidn${CMAKE_STATIC_LIBRARY_SUFFIX})
++find_library(HOGWEED libhogweed${CMAKE_SHARED_LIBRARY_SUFFIX})
++find_library(GMP libgmp${CMAKE_SHARED_LIBRARY_SUFFIX})
++find_library(NETTLE libnettle${CMAKE_SHARED_LIBRARY_SUFFIX})
++find_library(IDN libidn${CMAKE_SHARED_LIBRARY_SUFFIX})
+ 
+ # for FTL we need the pthread library
+ # for dnsmasq we need the nettle crypto library and the gmp maths library
+diff -uprN FTL-5.1/src/config.c FTL-5.1.cust/src/config.c
+--- FTL-5.1/src/config.c	2020-07-15 23:26:33.000000000 +0200
++++ FTL-5.1.cust/src/config.c	2020-07-17 17:06:11.730916054 +0200
+@@ -57,7 +57,7 @@ void getLogFilePath(void)
+ 	}
+ 
+ 	// Read LOGFILE value if available
+-	// defaults to: "/var/log/pihole-FTL.log"
++	// defaults to: "/run/log/pihole-ftl/pihole-FTL.log"
+ 	buffer = parse_FTLconf(fp, "LOGFILE");
+ 
+ 	errno = 0;
+@@ -65,7 +65,7 @@ void getLogFilePath(void)
+ 	if(buffer == NULL || sscanf(buffer, "%127ms", &FTLfiles.log) != 1)
+ 	{
+ 		// Use standard path if no custom path was obtained from the config file
+-		FTLfiles.log = strdup("/var/log/pihole-FTL.log");
++		FTLfiles.log = strdup("/run/log/pihole-ftl/pihole-FTL.log");
+ 	}
+ 
+ 	// Test if memory allocation was successful
+diff -uprN FTL-5.1/src/version.h.in FTL-5.1.cust/src/version.h.in
+--- FTL-5.1/src/version.h.in	2020-07-15 23:26:33.000000000 +0200
++++ FTL-5.1.cust/src/version.h.in	2020-07-17 17:06:11.724916041 +0200
+@@ -1,10 +1,10 @@
+ #ifndef VERSION_H
+ #define VERSION_H
+ 
+-#define GIT_VERSION "@GIT_VERSION@"
+-#define GIT_DATE "@GIT_DATE@"
+-#define GIT_BRANCH "@GIT_BRANCH@"
+-#define GIT_TAG "@GIT_TAG@"
++#define GIT_VERSION "v5.1"
++#define GIT_DATE "2020-07-17"
++#define GIT_BRANCH "master"
++#define GIT_TAG "v5.1"
+ #define GIT_HASH "@GIT_HASH@"
+ #define FTL_ARCH "@FTL_ARCH@"
+ #define FTL_CC "@FTL_CC@"

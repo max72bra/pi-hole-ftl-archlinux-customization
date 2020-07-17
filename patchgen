@@ -1,6 +1,6 @@
 #!/bin/sh
 
-pkgver=5.0
+pkgver=5.1
 source="https://github.com/pi-hole/FTL/archive/v$pkgver.tar.gz"
 dira="FTL-$pkgver"
 dirb="$dira.cust"
@@ -14,34 +14,25 @@ wget -q -nc $source
 tar xf v$pkgver.tar.gz
 cp -a $dira $dirb
 
-# makefile gcc 9
-sed -i "s|EXTRAWARN=-Werror -Waddress|EXTRAWARN=-Waddress|w $_ssc" "$dirb"/Makefile
-if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> makefile gcc 9 1" && exit 1 ; fi
-
-# makefile disable static linking
-sed -n "/^LIBS=-pthread -lrt -Wl,/w $_ssc" "$dirb"/Makefile
-if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: makefile disable static linking 1" && exit 1 ; fi
-#sed -i '/^LIBS=-pthread -lrt -Wl,/d' "$dirb"/Makefile
-sed -i "s|LIBS=-pthread -lrt -Wl,-Bstatic -L/usr/local/lib -lhogweed -lgmp -lnettle|LIBS=-pthread -lrt -lhogweed -lgmp -lnettle|w $_ssc" "$dirb"/Makefile
-if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: makefile disable static linking 2" && exit 1 ; fi
-
 # git descriptions setup
-sed -i "s|^GIT_BRANCH := .*$|GIT_BRANCH := master|w $_ssc" "$dirb"/Makefile
+sed -i "s|@GIT_BRANCH@|master|w $_ssc" "$dirb"/src/version.h.in
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: git descriptions setup 1" && exit 1 ; fi
-sed -i "s|^GIT_VERSION := .*$|GIT_VERSION := v$pkgver|w $_ssc" "$dirb"/Makefile
+sed -i "s|@GIT_VERSION@|v$pkgver|w $_ssc" "$dirb"/src/version.h.in
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: git descriptions setup 2" && exit 1 ; fi
-sed -i "s|^GIT_DATE := .*$|GIT_DATE := $(date -I)|w $_ssc" "$dirb"/Makefile
+sed -i "s|@GIT_DATE@|$(date -I)|w $_ssc" "$dirb"/src/version.h.in
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: git descriptions setup 3" && exit 1 ; fi
-sed -i "s|^GIT_TAG := .*$|GIT_TAG := v$pkgver|w $_ssc" "$dirb"/Makefile
+sed -i "s|@GIT_TAG@|v$pkgver|w $_ssc" "$dirb"/src/version.h.in
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: git descriptions setup 4" && exit 1 ; fi
+#sed -i "s|@GIT_HASH@|v$pkgver|w $_ssc" "$dirb"/src/version.h.in
+#if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: git descriptions setup 5" && exit 1 ; fi
+
+#cmake setup
+sed -i "s|CMAKE_STATIC_LIBRARY_SUFFIX|CMAKE_SHARED_LIBRARY_SUFFIX|w $_ssc" "$dirb"/src/CMakeLists.txt
+if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: cmake setup 1" && exit 1 ; fi
 
 # logs paths defaulted to tmpfs
 sed -i "s|/var/log/pihole-FTL.log|/run/log/pihole-ftl/pihole-FTL.log|w $_ssc" "$dirb"/src/config.c
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: logs paths defaulted to tmpfs 1" && exit 1 ; fi
-sed -i "s|/var/run/pihole-FTL|/run/pihole-ftl/pihole-FTL|w $_ssc" "$dirb"/src/config.c
-if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: logs paths defaulted to tmpfs 2" && exit 1 ; fi
-sed -i "s|/var/run/pihole/|/run/pihole-ftl/|w $_ssc" "$dirb"/src/config.c
-if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: logs paths defaulted to tmpfs 3" && exit 1 ; fi
 
 diff -uprN $dira $dirb > arch-ftl-$pkgver.patch
 git add arch-ftl-$pkgver.patch
