@@ -1,6 +1,6 @@
 diff -uprN FTL-5.1/src/CMakeLists.txt FTL-5.1.cust/src/CMakeLists.txt
 --- FTL-5.1/src/CMakeLists.txt	2020-07-15 23:26:33.000000000 +0200
-+++ FTL-5.1.cust/src/CMakeLists.txt	2020-07-17 21:07:44.637004464 +0200
++++ FTL-5.1.cust/src/CMakeLists.txt	2020-07-17 22:38:00.834328901 +0200
 @@ -172,10 +172,10 @@ set(CMAKE_THREAD_PREFER_PTHREAD TRUE)
  set(THREADS_PREFER_PTHREAD_FLAG TRUE)
  find_package(Threads REQUIRED)
@@ -18,7 +18,7 @@ diff -uprN FTL-5.1/src/CMakeLists.txt FTL-5.1.cust/src/CMakeLists.txt
  # for dnsmasq we need the nettle crypto library and the gmp maths library
 diff -uprN FTL-5.1/src/config.c FTL-5.1.cust/src/config.c
 --- FTL-5.1/src/config.c	2020-07-15 23:26:33.000000000 +0200
-+++ FTL-5.1.cust/src/config.c	2020-07-17 21:07:44.639004466 +0200
++++ FTL-5.1.cust/src/config.c	2020-07-17 22:38:00.838328902 +0200
 @@ -57,7 +57,7 @@ void getLogFilePath(void)
  	}
  
@@ -37,9 +37,22 @@ diff -uprN FTL-5.1/src/config.c FTL-5.1.cust/src/config.c
  	}
  
  	// Test if memory allocation was successful
+@@ -298,10 +298,10 @@ void read_FTLconf(void)
+ 		logg("   DBIMPORT: Not importing history from database");
+ 
+ 	// PIDFILE
+-	getpath(fp, "PIDFILE", "/run/pihole-FTL.pid", &FTLfiles.pid);
++	getpath(fp, "PIDFILE", "/run/pihole-ftl-FTL.pid", &FTLfiles.pid);
+ 
+ 	// SOCKETFILE
+-	getpath(fp, "SOCKETFILE", "/run/pihole/FTL.sock", &FTLfiles.socketfile);
++	getpath(fp, "SOCKETFILE", "/run/pihole-ftl/FTL.sock", &FTLfiles.socketfile);
+ 
+ 	// SETUPVARSFILE
+ 	getpath(fp, "SETUPVARSFILE", "/etc/pihole/setupVars.conf", &FTLfiles.setupVars);
 diff -uprN FTL-5.1/src/version.h.in FTL-5.1.cust/src/version.h.in
 --- FTL-5.1/src/version.h.in	2020-07-15 23:26:33.000000000 +0200
-+++ FTL-5.1.cust/src/version.h.in	2020-07-17 21:07:44.635004463 +0200
++++ FTL-5.1.cust/src/version.h.in	2020-07-17 22:38:00.832328900 +0200
 @@ -1,10 +1,10 @@
  #ifndef VERSION_H
  #define VERSION_H
@@ -55,3 +68,15 @@ diff -uprN FTL-5.1/src/version.h.in FTL-5.1.cust/src/version.h.in
  #define GIT_HASH "@GIT_HASH@"
  #define FTL_ARCH "@FTL_ARCH@"
  #define FTL_CC "@FTL_CC@"
+diff -uprN FTL-5.1/tools/socket_client.c FTL-5.1.cust/tools/socket_client.c
+--- FTL-5.1/tools/socket_client.c	2020-07-15 23:26:33.000000000 +0200
++++ FTL-5.1.cust/tools/socket_client.c	2020-07-17 22:38:00.840328903 +0200
+@@ -40,7 +40,7 @@ int main (int argc, char **argv) {
+ 	address.sun_family = AF_LOCAL;
+ 
+ 	char *command = ">stats";
+-	strcpy(address.sun_path,"/run/pihole/FTL.sock");
++	strcpy(address.sun_path,"/run/pihole-ftl/FTL.sock");
+ 
+ 	int i;
+ 	for(i = 1; i < argc; i++) {

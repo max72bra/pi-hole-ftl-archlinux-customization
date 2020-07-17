@@ -34,6 +34,12 @@ if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: cmake setup 1" &&
 sed -i "s|/var/log/pihole-FTL.log|/run/log/pihole-ftl/pihole-FTL.log|w $_ssc" "$dirb"/src/config.c
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: logs paths defaulted to tmpfs 1" && exit 1 ; fi
 
+# sock path
+sed -i "s|/run/pihole|/run/pihole-ftl|w $_ssc" "$dirb"/src/config.c
+if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: sock path 1" && exit 1 ; fi
+sed -i "s|/run/pihole|/run/pihole-ftl|w $_ssc" "$dirb"/tools/socket_client.c
+if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: sock path 2" && exit 1 ; fi
+
 diff -uprN $dira $dirb > arch-ftl-$pkgver.patch
 git add arch-ftl-$pkgver.patch
 git add patchgen
