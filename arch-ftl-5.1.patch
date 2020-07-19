@@ -1,6 +1,6 @@
 diff -uprN FTL-5.1/src/CMakeLists.txt FTL-5.1.cust/src/CMakeLists.txt
---- FTL-5.1/src/CMakeLists.txt	2020-07-15 23:26:33.000000000 +0200
-+++ FTL-5.1.cust/src/CMakeLists.txt	2020-07-17 22:38:00.834328901 +0200
+--- FTL-5.1/src/CMakeLists.txt	2020-07-15 17:26:33.000000000 -0400
++++ FTL-5.1.cust/src/CMakeLists.txt	2020-07-19 11:53:17.954159522 -0400
 @@ -172,10 +172,10 @@ set(CMAKE_THREAD_PREFER_PTHREAD TRUE)
  set(THREADS_PREFER_PTHREAD_FLAG TRUE)
  find_package(Threads REQUIRED)
@@ -17,8 +17,8 @@ diff -uprN FTL-5.1/src/CMakeLists.txt FTL-5.1.cust/src/CMakeLists.txt
  # for FTL we need the pthread library
  # for dnsmasq we need the nettle crypto library and the gmp maths library
 diff -uprN FTL-5.1/src/config.c FTL-5.1.cust/src/config.c
---- FTL-5.1/src/config.c	2020-07-15 23:26:33.000000000 +0200
-+++ FTL-5.1.cust/src/config.c	2020-07-17 22:38:00.838328902 +0200
+--- FTL-5.1/src/config.c	2020-07-15 17:26:33.000000000 -0400
++++ FTL-5.1.cust/src/config.c	2020-07-19 11:53:17.960826066 -0400
 @@ -57,7 +57,7 @@ void getLogFilePath(void)
  	}
  
@@ -51,9 +51,9 @@ diff -uprN FTL-5.1/src/config.c FTL-5.1.cust/src/config.c
  	// SETUPVARSFILE
  	getpath(fp, "SETUPVARSFILE", "/etc/pihole/setupVars.conf", &FTLfiles.setupVars);
 diff -uprN FTL-5.1/src/version.h.in FTL-5.1.cust/src/version.h.in
---- FTL-5.1/src/version.h.in	2020-07-15 23:26:33.000000000 +0200
-+++ FTL-5.1.cust/src/version.h.in	2020-07-17 22:38:00.832328900 +0200
-@@ -1,10 +1,10 @@
+--- FTL-5.1/src/version.h.in	2020-07-15 17:26:33.000000000 -0400
++++ FTL-5.1.cust/src/version.h.in	2020-07-19 11:53:17.950826250 -0400
+@@ -1,11 +1,11 @@
  #ifndef VERSION_H
  #define VERSION_H
  
@@ -61,16 +61,18 @@ diff -uprN FTL-5.1/src/version.h.in FTL-5.1.cust/src/version.h.in
 -#define GIT_DATE "@GIT_DATE@"
 -#define GIT_BRANCH "@GIT_BRANCH@"
 -#define GIT_TAG "@GIT_TAG@"
+-#define GIT_HASH "@GIT_HASH@"
 +#define GIT_VERSION "5.1"
-+#define GIT_DATE "2020-07-17"
++#define GIT_DATE "2020-07-19"
 +#define GIT_BRANCH "master"
 +#define GIT_TAG "5.1"
- #define GIT_HASH "@GIT_HASH@"
++#define GIT_HASH "builtfromreleasetarball"
  #define FTL_ARCH "@FTL_ARCH@"
  #define FTL_CC "@FTL_CC@"
+ 
 diff -uprN FTL-5.1/tools/socket_client.c FTL-5.1.cust/tools/socket_client.c
---- FTL-5.1/tools/socket_client.c	2020-07-15 23:26:33.000000000 +0200
-+++ FTL-5.1.cust/tools/socket_client.c	2020-07-17 22:38:00.840328903 +0200
+--- FTL-5.1/tools/socket_client.c	2020-07-15 17:26:33.000000000 -0400
++++ FTL-5.1.cust/tools/socket_client.c	2020-07-19 11:53:17.964159338 -0400
 @@ -40,7 +40,7 @@ int main (int argc, char **argv) {
  	address.sun_family = AF_LOCAL;
  
