@@ -1,7 +1,7 @@
-diff -uprN FTL-5.1/src/CMakeLists.txt FTL-5.1.cust/src/CMakeLists.txt
---- FTL-5.1/src/CMakeLists.txt	2020-07-15 23:26:33.000000000 +0200
-+++ FTL-5.1.cust/src/CMakeLists.txt	2020-07-21 09:43:58.019799336 +0200
-@@ -172,10 +172,10 @@ set(CMAKE_THREAD_PREFER_PTHREAD TRUE)
+diff -uprN FTL-5.2/src/CMakeLists.txt FTL-5.2.cust/src/CMakeLists.txt
+--- FTL-5.2/src/CMakeLists.txt	2020-08-09 23:09:43.000000000 +0200
++++ FTL-5.2.cust/src/CMakeLists.txt	2020-08-12 09:36:39.205345710 +0200
+@@ -174,10 +174,10 @@ set(CMAKE_THREAD_PREFER_PTHREAD TRUE)
  set(THREADS_PREFER_PTHREAD_FLAG TRUE)
  find_package(Threads REQUIRED)
  
@@ -16,10 +16,10 @@ diff -uprN FTL-5.1/src/CMakeLists.txt FTL-5.1.cust/src/CMakeLists.txt
  
  # for FTL we need the pthread library
  # for dnsmasq we need the nettle crypto library and the gmp maths library
-diff -uprN FTL-5.1/src/config.c FTL-5.1.cust/src/config.c
---- FTL-5.1/src/config.c	2020-07-15 23:26:33.000000000 +0200
-+++ FTL-5.1.cust/src/config.c	2020-07-21 09:43:58.023799338 +0200
-@@ -57,7 +57,7 @@ void getLogFilePath(void)
+diff -uprN FTL-5.2/src/config.c FTL-5.2.cust/src/config.c
+--- FTL-5.2/src/config.c	2020-08-09 23:09:43.000000000 +0200
++++ FTL-5.2.cust/src/config.c	2020-08-12 09:36:39.211345690 +0200
+@@ -60,7 +60,7 @@ void getLogFilePath(void)
  	}
  
  	// Read LOGFILE value if available
@@ -28,7 +28,7 @@ diff -uprN FTL-5.1/src/config.c FTL-5.1.cust/src/config.c
  	buffer = parse_FTLconf(fp, "LOGFILE");
  
  	errno = 0;
-@@ -65,7 +65,7 @@ void getLogFilePath(void)
+@@ -68,7 +68,7 @@ void getLogFilePath(void)
  	if(buffer == NULL || sscanf(buffer, "%127ms", &FTLfiles.log) != 1)
  	{
  		// Use standard path if no custom path was obtained from the config file
@@ -37,12 +37,17 @@ diff -uprN FTL-5.1/src/config.c FTL-5.1.cust/src/config.c
  	}
  
  	// Test if memory allocation was successful
-@@ -298,10 +298,10 @@ void read_FTLconf(void)
+@@ -301,14 +301,14 @@ void read_FTLconf(void)
  		logg("   DBIMPORT: Not importing history from database");
  
  	// PIDFILE
 -	getpath(fp, "PIDFILE", "/run/pihole-FTL.pid", &FTLfiles.pid);
 +	getpath(fp, "PIDFILE", "/run/pihole-ftl-FTL.pid", &FTLfiles.pid);
+ 
+ 	// PORTFILE
+-	getpath(fp, "PORTFILE", "/run/pihole-FTL.port", &FTLfiles.port);
++	getpath(fp, "PORTFILE", "/run/pihole-ftl-FTL.port", &FTLfiles.port);
+ 	saveport(config.port);
  
  	// SOCKETFILE
 -	getpath(fp, "SOCKETFILE", "/run/pihole/FTL.sock", &FTLfiles.socketfile);
@@ -50,9 +55,9 @@ diff -uprN FTL-5.1/src/config.c FTL-5.1.cust/src/config.c
  
  	// SETUPVARSFILE
  	getpath(fp, "SETUPVARSFILE", "/etc/pihole/setupVars.conf", &FTLfiles.setupVars);
-diff -uprN FTL-5.1/src/version.h.in FTL-5.1.cust/src/version.h.in
---- FTL-5.1/src/version.h.in	2020-07-15 23:26:33.000000000 +0200
-+++ FTL-5.1.cust/src/version.h.in	2020-07-21 09:43:58.017799334 +0200
+diff -uprN FTL-5.2/src/version.h.in FTL-5.2.cust/src/version.h.in
+--- FTL-5.2/src/version.h.in	2020-08-09 23:09:43.000000000 +0200
++++ FTL-5.2.cust/src/version.h.in	2020-08-12 09:36:39.204345713 +0200
 @@ -1,11 +1,11 @@
  #ifndef VERSION_H
  #define VERSION_H
@@ -62,17 +67,17 @@ diff -uprN FTL-5.1/src/version.h.in FTL-5.1.cust/src/version.h.in
 -#define GIT_BRANCH "@GIT_BRANCH@"
 -#define GIT_TAG "@GIT_TAG@"
 -#define GIT_HASH "@GIT_HASH@"
-+#define GIT_VERSION "5.1"
-+#define GIT_DATE "2020-07-21"
++#define GIT_VERSION "5.2"
++#define GIT_DATE "2020-08-12"
 +#define GIT_BRANCH "master"
-+#define GIT_TAG "5.1"
++#define GIT_TAG "5.2"
 +#define GIT_HASH "builtfromreleasetarball"
  #define FTL_ARCH "@FTL_ARCH@"
  #define FTL_CC "@FTL_CC@"
  
-diff -uprN FTL-5.1/tools/socket_client.c FTL-5.1.cust/tools/socket_client.c
---- FTL-5.1/tools/socket_client.c	2020-07-15 23:26:33.000000000 +0200
-+++ FTL-5.1.cust/tools/socket_client.c	2020-07-21 09:43:58.025799340 +0200
+diff -uprN FTL-5.2/tools/socket_client.c FTL-5.2.cust/tools/socket_client.c
+--- FTL-5.2/tools/socket_client.c	2020-08-09 23:09:43.000000000 +0200
++++ FTL-5.2.cust/tools/socket_client.c	2020-08-12 09:36:39.214345680 +0200
 @@ -40,7 +40,7 @@ int main (int argc, char **argv) {
  	address.sun_family = AF_LOCAL;
  
