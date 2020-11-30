@@ -1,12 +1,12 @@
 diff -uprN FTL-5.3.1/src/CMakeLists.txt FTL-5.3.1.cust/src/CMakeLists.txt
 --- FTL-5.3.1/src/CMakeLists.txt	2020-11-28 21:59:12.000000000 +0100
-+++ FTL-5.3.1.cust/src/CMakeLists.txt	2020-11-30 20:23:31.137261796 +0100
++++ FTL-5.3.1.cust/src/CMakeLists.txt	2020-11-30 23:19:31.821977558 +0100
 @@ -80,7 +80,7 @@ if(CMAKE_C_COMPILER_VERSION VERSION_EQUA
  else()
      set(EXTRAWARN_GCC8 "")
  endif()
 -set(EXTRAWARN "-Werror -Waddress -Wlogical-op -Wmissing-field-initializers -Woverlength-strings -Wformat -Wformat-nonliteral -Wuninitialized -Wswitch-enum -Wshadow -Wfloat-equal -Wbad-function-cast -Wwrite-strings -Wparentheses -Wlogical-op -Wstrict-prototypes -Wmissing-prototypes -Wredundant-decls -Winline ${EXTRAWARN_GCC8}")
-+set(EXTRAWARN "-Waddress -Wlogical-op -Wmissing-field-initializers -Woverlength-strings -Wformat -Wformat-nonliteral -Wuninitialized -Wswitch-enum -Wshadow -Wfloat-equal -Wbad-function-cast -Wwrite-strings -Wparentheses -Wlogical-op -Wstrict-prototypes -Wmissing-prototypes -Wredundant-decls -Winline ${EXTRAWARN_GCC8}")
++set(EXTRAWARN "-fcommon -Waddress -Wlogical-op -Wmissing-field-initializers -Woverlength-strings -Wformat -Wformat-nonliteral -Wuninitialized -Wswitch-enum -Wshadow -Wfloat-equal -Wbad-function-cast -Wwrite-strings -Wparentheses -Wlogical-op -Wstrict-prototypes -Wmissing-prototypes -Wredundant-decls -Winline ${EXTRAWARN_GCC8}")
  separate_arguments(EXTRAWARN)
  
  # Do we want to compile a statically linked musl executable?
@@ -40,7 +40,7 @@ diff -uprN FTL-5.3.1/src/CMakeLists.txt FTL-5.3.1.cust/src/CMakeLists.txt
      target_compile_definitions(FTL PRIVATE LUA_USE_READLINE)
 diff -uprN FTL-5.3.1/src/config.c FTL-5.3.1.cust/src/config.c
 --- FTL-5.3.1/src/config.c	2020-11-28 21:59:12.000000000 +0100
-+++ FTL-5.3.1.cust/src/config.c	2020-11-30 20:23:31.141261788 +0100
++++ FTL-5.3.1.cust/src/config.c	2020-11-30 23:19:31.825977567 +0100
 @@ -60,7 +60,7 @@ void getLogFilePath(void)
  	}
  
@@ -70,7 +70,7 @@ diff -uprN FTL-5.3.1/src/config.c FTL-5.3.1.cust/src/config.c
  	getpath(fp, "SETUPVARSFILE", "/etc/pihole/setupVars.conf", &FTLfiles.setupVars);
 diff -uprN FTL-5.3.1/src/version.h.in FTL-5.3.1.cust/src/version.h.in
 --- FTL-5.3.1/src/version.h.in	2020-11-28 21:59:12.000000000 +0100
-+++ FTL-5.3.1.cust/src/version.h.in	2020-11-30 20:23:31.133261804 +0100
++++ FTL-5.3.1.cust/src/version.h.in	2020-11-30 23:19:31.816977548 +0100
 @@ -1,11 +1,11 @@
  #ifndef VERSION_H
  #define VERSION_H
@@ -90,7 +90,7 @@ diff -uprN FTL-5.3.1/src/version.h.in FTL-5.3.1.cust/src/version.h.in
  
 diff -uprN FTL-5.3.1/tools/socket_client.c FTL-5.3.1.cust/tools/socket_client.c
 --- FTL-5.3.1/tools/socket_client.c	2020-11-28 21:59:12.000000000 +0100
-+++ FTL-5.3.1.cust/tools/socket_client.c	2020-11-30 20:23:31.143261783 +0100
++++ FTL-5.3.1.cust/tools/socket_client.c	2020-11-30 23:19:31.829977576 +0100
 @@ -40,7 +40,7 @@ int main (int argc, char **argv) {
  	address.sun_family = AF_LOCAL;
  
