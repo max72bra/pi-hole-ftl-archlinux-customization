@@ -26,6 +26,10 @@ if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: git descriptions 
 sed -i "s|@GIT_HASH@|builtfromreleasetarball|w $_ssc" "$dirb"/src/version.h.in
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: git descriptions setup 5" && exit 1 ; fi
 
+# warning errors, again...
+sed -i "s|EXTRAWARN \"-Werror -Waddress|EXTRAWARN \"-Waddress|w $_ssc" "$dirb"/src/CMakeLists.txt
+if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> warning errors, again... 1" && exit 1 ; fi
+
 #cmake setup
 sed -i "s|CMAKE_STATIC_LIBRARY_SUFFIX|CMAKE_SHARED_LIBRARY_SUFFIX|w $_ssc" "$dirb"/src/CMakeLists.txt
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: cmake setup 1" && exit 1 ; fi
