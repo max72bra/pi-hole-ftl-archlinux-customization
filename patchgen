@@ -1,6 +1,6 @@
 #!/bin/sh
 
-pkgver=5.3.1
+pkgver=5.3.2
 source="https://github.com/pi-hole/FTL/archive/v$pkgver.tar.gz"
 dira="FTL-$pkgver"
 dirb="$dira.cust"
@@ -27,8 +27,10 @@ sed -i "s|@GIT_HASH@|builtfromreleasetarball|w $_ssc" "$dirb"/src/version.h.in
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: git descriptions setup 5" && exit 1 ; fi
 
 # gcc 9+ compile and link errors, again...
-sed -i "s|EXTRAWARN \"-Werror -Waddress|EXTRAWARN \"-fcommon -Waddress|w $_ssc" "$dirb"/src/CMakeLists.txt
-if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> warning errors, again... 1" && exit 1 ; fi
+sed -i "s|EXTRAWARN \"-Werror -Waddress|EXTRAWARN \"-Waddress|w $_ssc" "$dirb"/src/CMakeLists.txt
+if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> gcc 9+ compile and link errors, again... 1" && exit 1 ; fi
+sed -i "s|relro -fno-common\")|relro -fcommon\")|w $_ssc" "$dirb"/src/CMakeLists.txt
+if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> gcc 9+ compile and link errors, again... 2" && exit 1 ; fi
 
 #cmake setup
 sed -i "s|CMAKE_STATIC_LIBRARY_SUFFIX|CMAKE_SHARED_LIBRARY_SUFFIX|w $_ssc" "$dirb"/src/CMakeLists.txt
