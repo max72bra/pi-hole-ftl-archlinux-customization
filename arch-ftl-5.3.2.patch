@@ -1,6 +1,6 @@
 diff -uprN FTL-5.3.2/src/CMakeLists.txt FTL-5.3.2.cust/src/CMakeLists.txt
 --- FTL-5.3.2/src/CMakeLists.txt	2020-12-02 22:28:39.000000000 +0100
-+++ FTL-5.3.2.cust/src/CMakeLists.txt	2020-12-03 10:46:19.868599867 +0100
++++ FTL-5.3.2.cust/src/CMakeLists.txt	2020-12-05 22:48:54.286198537 +0100
 @@ -189,10 +189,10 @@ set(THREADS_PREFER_PTHREAD_FLAG TRUE)
  find_package(Threads REQUIRED)
  
@@ -31,7 +31,7 @@ diff -uprN FTL-5.3.2/src/CMakeLists.txt FTL-5.3.2.cust/src/CMakeLists.txt
      target_compile_definitions(FTL PRIVATE LUA_USE_READLINE)
 diff -uprN FTL-5.3.2/src/config.c FTL-5.3.2.cust/src/config.c
 --- FTL-5.3.2/src/config.c	2020-12-02 22:28:39.000000000 +0100
-+++ FTL-5.3.2.cust/src/config.c	2020-12-03 10:46:19.872599865 +0100
++++ FTL-5.3.2.cust/src/config.c	2020-12-05 22:48:54.290198538 +0100
 @@ -60,7 +60,7 @@ void getLogFilePath(void)
  	}
  
@@ -61,7 +61,7 @@ diff -uprN FTL-5.3.2/src/config.c FTL-5.3.2.cust/src/config.c
  	getpath(fp, "SETUPVARSFILE", "/etc/pihole/setupVars.conf", &FTLfiles.setupVars);
 diff -uprN FTL-5.3.2/src/version.h.in FTL-5.3.2.cust/src/version.h.in
 --- FTL-5.3.2/src/version.h.in	2020-12-02 22:28:39.000000000 +0100
-+++ FTL-5.3.2.cust/src/version.h.in	2020-12-03 10:46:19.866599867 +0100
++++ FTL-5.3.2.cust/src/version.h.in	2020-12-05 22:48:54.284198536 +0100
 @@ -1,11 +1,11 @@
  #ifndef VERSION_H
  #define VERSION_H
@@ -71,17 +71,17 @@ diff -uprN FTL-5.3.2/src/version.h.in FTL-5.3.2.cust/src/version.h.in
 -#define GIT_BRANCH "@GIT_BRANCH@"
 -#define GIT_TAG "@GIT_TAG@"
 -#define GIT_HASH "@GIT_HASH@"
-+#define GIT_VERSION "5.3.2"
-+#define GIT_DATE "2020-12-03"
++#define GIT_VERSION "v5.3.2"
++#define GIT_DATE "2020-12-05"
 +#define GIT_BRANCH "master"
-+#define GIT_TAG "5.3.2"
++#define GIT_TAG "v5.3.2"
 +#define GIT_HASH "builtfromreleasetarball"
  #define FTL_ARCH "@FTL_ARCH@"
  #define FTL_CC "@FTL_CC@"
  
 diff -uprN FTL-5.3.2/tools/socket_client.c FTL-5.3.2.cust/tools/socket_client.c
 --- FTL-5.3.2/tools/socket_client.c	2020-12-02 22:28:39.000000000 +0100
-+++ FTL-5.3.2.cust/tools/socket_client.c	2020-12-03 10:46:19.873599864 +0100
++++ FTL-5.3.2.cust/tools/socket_client.c	2020-12-05 22:48:54.291198538 +0100
 @@ -40,7 +40,7 @@ int main (int argc, char **argv) {
  	address.sun_family = AF_LOCAL;
  
