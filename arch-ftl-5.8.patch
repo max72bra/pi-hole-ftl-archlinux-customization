@@ -1,6 +1,15 @@
 diff -uprN FTL-5.8/src/CMakeLists.txt FTL-5.8.cust/src/CMakeLists.txt
 --- FTL-5.8/src/CMakeLists.txt	2021-04-14 19:52:20.000000000 +0200
-+++ FTL-5.8.cust/src/CMakeLists.txt	2021-04-15 21:01:24.993498386 +0200
++++ FTL-5.8.cust/src/CMakeLists.txt	2021-04-15 21:06:33.685015890 +0200
+@@ -81,7 +81,7 @@ if(CMAKE_C_COMPILER_VERSION VERSION_EQUA
+ else()
+     set(EXTRAWARN_GCC8 "")
+ endif()
+-set(EXTRAWARN "-Werror -Waddress -Wlogical-op -Wmissing-field-initializers -Woverlength-strings -Wformat -Wformat-nonliteral -Wuninitialized -Wswitch-enum -Wshadow -Wfloat-equal -Wbad-function-cast -Wwrite-strings -Wparentheses -Wlogical-op -Wstrict-prototypes -Wmissing-prototypes -Wredundant-decls -Winline ${EXTRAWARN_GCC8}")
++set(EXTRAWARN "-Waddress -Wlogical-op -Wmissing-field-initializers -Woverlength-strings -Wformat -Wformat-nonliteral -Wuninitialized -Wswitch-enum -Wshadow -Wfloat-equal -Wbad-function-cast -Wwrite-strings -Wparentheses -Wlogical-op -Wstrict-prototypes -Wmissing-prototypes -Wredundant-decls -Winline ${EXTRAWARN_GCC8}")
+ separate_arguments(EXTRAWARN)
+ 
+ # Do we want to compile a statically linked musl executable?
 @@ -191,10 +191,10 @@ set(THREADS_PREFER_PTHREAD_FLAG TRUE)
  find_package(Threads REQUIRED)
  
@@ -31,7 +40,7 @@ diff -uprN FTL-5.8/src/CMakeLists.txt FTL-5.8.cust/src/CMakeLists.txt
      target_compile_definitions(FTL PRIVATE LUA_USE_READLINE)
 diff -uprN FTL-5.8/src/config.c FTL-5.8.cust/src/config.c
 --- FTL-5.8/src/config.c	2021-04-14 19:52:20.000000000 +0200
-+++ FTL-5.8.cust/src/config.c	2021-04-15 21:01:25.000498390 +0200
++++ FTL-5.8.cust/src/config.c	2021-04-15 21:06:33.693015940 +0200
 @@ -64,7 +64,7 @@ void getLogFilePath(void)
  	}
  
@@ -70,7 +79,7 @@ diff -uprN FTL-5.8/src/config.c FTL-5.8.cust/src/config.c
  	getpath(fp, "SETUPVARSFILE", "/etc/pihole/setupVars.conf", &FTLfiles.setupVars);
 diff -uprN FTL-5.8/src/version.h.in FTL-5.8.cust/src/version.h.in
 --- FTL-5.8/src/version.h.in	2021-04-14 19:52:20.000000000 +0200
-+++ FTL-5.8.cust/src/version.h.in	2021-04-15 21:01:24.991498385 +0200
++++ FTL-5.8.cust/src/version.h.in	2021-04-15 21:06:33.680015858 +0200
 @@ -1,11 +1,11 @@
  #ifndef VERSION_H
  #define VERSION_H
@@ -90,7 +99,7 @@ diff -uprN FTL-5.8/src/version.h.in FTL-5.8.cust/src/version.h.in
  
 diff -uprN FTL-5.8/tools/socket_client.c FTL-5.8.cust/tools/socket_client.c
 --- FTL-5.8/tools/socket_client.c	2021-04-14 19:52:20.000000000 +0200
-+++ FTL-5.8.cust/tools/socket_client.c	2021-04-15 21:01:25.002498391 +0200
++++ FTL-5.8.cust/tools/socket_client.c	2021-04-15 21:06:33.694015946 +0200
 @@ -40,7 +40,7 @@ int main (int argc, char **argv) {
  	address.sun_family = AF_LOCAL;
  
