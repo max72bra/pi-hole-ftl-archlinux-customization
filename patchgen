@@ -1,6 +1,6 @@
 #!/bin/sh
 
-pkgver=5.10.1
+pkgver=5.10.2
 source="https://github.com/pi-hole/FTL/archive/v$pkgver.tar.gz"
 dira="FTL-$pkgver"
 dirb="$dira.cust"
