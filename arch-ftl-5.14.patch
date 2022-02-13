@@ -1,6 +1,15 @@
 diff -uprN FTL-5.14/src/CMakeLists.txt FTL-5.14.cust/src/CMakeLists.txt
 --- FTL-5.14/src/CMakeLists.txt	2022-02-12 20:58:34.000000000 +0100
-+++ FTL-5.14.cust/src/CMakeLists.txt	2022-02-12 21:13:56.678169167 +0100
++++ FTL-5.14.cust/src/CMakeLists.txt	2022-02-13 12:29:02.787252273 +0100
+@@ -29,7 +29,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PRO
+ # SQLITE_ENABLE_DBPAGE_VTAB: Enables the SQLITE_DBPAGE virtual table. Warning: writing to the SQLITE_DBPAGE virtual table can very easily cause unrecoverably database corruption.
+ # SQLITE_OMIT_DESERIALIZE: This option causes the the sqlite3_serialize() and sqlite3_deserialize() interfaces to be omitted from the build (was the default before 3.36.0)
+ # HAVE_READLINE: Enable readline support to allow easy editing, history and auto-completion
+-set(SQLITE_DEFINES "-DSQLITE_OMIT_LOAD_EXTENSION -DSQLITE_DEFAULT_MEMSTATUS=0 -DSQLITE_OMIT_DEPRECATED -DSQLITE_OMIT_PROGRESS_CALLBACK -DSQLITE_DEFAULT_FOREIGN_KEYS=1 -DSQLITE_DQS=0 -DSQLITE_ENABLE_DBPAGE_VTAB -DSQLITE_OMIT_DESERIALIZE -DHAVE_READLINE")
++set(SQLITE_DEFINES "-DSQLITE_OMIT_LOAD_EXTENSION -DSQLITE_DEFAULT_MEMSTATUS=0 -DSQLITE_OMIT_DEPRECATED -DSQLITE_OMIT_PROGRESS_CALLBACK -DSQLITE_DEFAULT_FOREIGN_KEYS=1 -DSQLITE_DQS=0 -DSQLITE_ENABLE_DBPAGE_VTAB -DSQLITE_OMIT_DESERIALIZE")
+ 
+ # Code hardening and debugging improvements
+ # -fstack-protector-strong: The program will be resistant to having its stack overflowed
 @@ -84,7 +84,7 @@ if(CMAKE_C_COMPILER_VERSION VERSION_EQUA
  else()
      set(EXTRAWARN_GCC8 "")
@@ -40,7 +49,7 @@ diff -uprN FTL-5.14/src/CMakeLists.txt FTL-5.14.cust/src/CMakeLists.txt
      target_compile_definitions(FTL PRIVATE LUA_USE_READLINE)
 diff -uprN FTL-5.14/src/config.c FTL-5.14.cust/src/config.c
 --- FTL-5.14/src/config.c	2022-02-12 20:58:34.000000000 +0100
-+++ FTL-5.14.cust/src/config.c	2022-02-12 21:13:56.696169225 +0100
++++ FTL-5.14.cust/src/config.c	2022-02-13 12:29:02.801252449 +0100
 @@ -78,7 +78,7 @@ void getLogFilePath(void)
  	}
  
@@ -79,7 +88,7 @@ diff -uprN FTL-5.14/src/config.c FTL-5.14.cust/src/config.c
  	getpath(fp, "SETUPVARSFILE", "/etc/pihole/setupVars.conf", &FTLfiles.setupVars);
 diff -uprN FTL-5.14/src/version.h.in FTL-5.14.cust/src/version.h.in
 --- FTL-5.14/src/version.h.in	2022-02-12 20:58:34.000000000 +0100
-+++ FTL-5.14.cust/src/version.h.in	2022-02-12 21:13:56.671169146 +0100
++++ FTL-5.14.cust/src/version.h.in	2022-02-13 12:29:02.779252172 +0100
 @@ -1,11 +1,11 @@
  #ifndef VERSION_H
  #define VERSION_H
@@ -90,7 +99,7 @@ diff -uprN FTL-5.14/src/version.h.in FTL-5.14.cust/src/version.h.in
 -#define GIT_TAG "@GIT_TAG@"
 -#define GIT_HASH "@GIT_HASH@"
 +#define GIT_VERSION "v5.14"
-+#define GIT_DATE "2022-02-12"
++#define GIT_DATE "2022-02-13"
 +#define GIT_BRANCH "master"
 +#define GIT_TAG "v5.14"
 +#define GIT_HASH "builtfromreleasetarball"
@@ -99,7 +108,7 @@ diff -uprN FTL-5.14/src/version.h.in FTL-5.14.cust/src/version.h.in
  
 diff -uprN FTL-5.14/tools/socket_client.c FTL-5.14.cust/tools/socket_client.c
 --- FTL-5.14/tools/socket_client.c	2022-02-12 20:58:34.000000000 +0100
-+++ FTL-5.14.cust/tools/socket_client.c	2022-02-12 21:13:56.697169228 +0100
++++ FTL-5.14.cust/tools/socket_client.c	2022-02-13 12:29:02.806252512 +0100
 @@ -40,7 +40,7 @@ int main (int argc, char **argv) {
  	address.sun_family = AF_LOCAL;
  
