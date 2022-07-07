@@ -1,6 +1,6 @@
 #!/bin/sh
 
-pkgver=5.15
+pkgver=5.16
 source="https://github.com/pi-hole/FTL/archive/v$pkgver.tar.gz"
 dira="FTL-$pkgver"
 dirb="$dira.cust"
@@ -39,7 +39,7 @@ sed -i "s|DESERIALIZE -DHAVE_READLINE|DESERIALIZE|w $_ssc" "$dirb"/src/CMakeList
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: cmake setup 2" && exit 1 ; fi
 
 # logs paths defaulted to tmpfs
-sed -i "s|/var/log/pihole-FTL.log|/run/log/pihole-ftl/pihole-FTL.log|w $_ssc" "$dirb"/src/config.c
+sed -i "s|/var/log/pihole/FTL.log|/run/log/pihole-ftl/pihole-FTL.log|w $_ssc" "$dirb"/src/config.c
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: logs paths defaulted to tmpfs 1" && exit 1 ; fi
 
 # pid, port and sock default paths
