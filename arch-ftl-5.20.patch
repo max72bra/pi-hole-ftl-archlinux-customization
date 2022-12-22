@@ -1,6 +1,6 @@
 diff -uprN FTL-5.20/src/CMakeLists.txt FTL-5.20.cust/src/CMakeLists.txt
 --- FTL-5.20/src/CMakeLists.txt	2022-12-21 22:06:00.000000000 +0100
-+++ FTL-5.20.cust/src/CMakeLists.txt	2022-12-22 09:44:25.651442597 +0100
++++ FTL-5.20.cust/src/CMakeLists.txt	2022-12-22 15:42:46.999036816 +0100
 @@ -30,7 +30,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PRO
  # SQLITE_OMIT_DESERIALIZE: This option causes the the sqlite3_serialize() and sqlite3_deserialize() interfaces to be omitted from the build (was the default before 3.36.0)
  # HAVE_READLINE: Enable readline support to allow easy editing, history and auto-completion
@@ -49,7 +49,7 @@ diff -uprN FTL-5.20/src/CMakeLists.txt FTL-5.20.cust/src/CMakeLists.txt
      target_compile_definitions(FTL PRIVATE LUA_USE_READLINE)
 diff -uprN FTL-5.20/src/config.c FTL-5.20.cust/src/config.c
 --- FTL-5.20/src/config.c	2022-12-21 22:06:00.000000000 +0100
-+++ FTL-5.20.cust/src/config.c	2022-12-22 09:44:25.659442606 +0100
++++ FTL-5.20.cust/src/config.c	2022-12-22 15:42:47.005036848 +0100
 @@ -76,7 +76,7 @@ void getLogFilePath(void)
  	}
  
@@ -83,7 +83,7 @@ diff -uprN FTL-5.20/src/config.c FTL-5.20.cust/src/config.c
  	getpath(fp, "SETUPVARSFILE", "/etc/pihole/setupVars.conf", &FTLfiles.setupVars);
 diff -uprN FTL-5.20/src/version.h.in FTL-5.20.cust/src/version.h.in
 --- FTL-5.20/src/version.h.in	2022-12-21 22:06:00.000000000 +0100
-+++ FTL-5.20.cust/src/version.h.in	2022-12-22 09:44:25.646442592 +0100
++++ FTL-5.20.cust/src/version.h.in	2022-12-22 15:42:46.993036784 +0100
 @@ -1,11 +1,11 @@
  #ifndef VERSION_H
  #define VERSION_H
@@ -103,7 +103,7 @@ diff -uprN FTL-5.20/src/version.h.in FTL-5.20.cust/src/version.h.in
  
 diff -uprN FTL-5.20/tools/socket_client.c FTL-5.20.cust/tools/socket_client.c
 --- FTL-5.20/tools/socket_client.c	2022-12-21 22:06:00.000000000 +0100
-+++ FTL-5.20.cust/tools/socket_client.c	2022-12-22 09:44:25.661442608 +0100
++++ FTL-5.20.cust/tools/socket_client.c	2022-12-22 15:42:47.007036859 +0100
 @@ -40,7 +40,7 @@ int main (int argc, char **argv) {
  	address.sun_family = AF_LOCAL;
  
