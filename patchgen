@@ -1,6 +1,7 @@
 #!/bin/sh
 
 pkgver=5.21
+pkgrel=1
 source="https://github.com/pi-hole/FTL/archive/v$pkgver.tar.gz"
 dira="FTL-$pkgver"
 dirb="$dira.cust"
@@ -50,6 +51,6 @@ if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: pid, port and soc
 sed -i "s|/run/pihole/|/run/pihole-ftl/|w $_ssc" "$dirb"/tools/socket_client.c
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: pid, port and sock default paths 3" && exit 1 ; fi
 
-diff -uprN $dira $dirb > arch-ftl-$pkgver.patch
-git add arch-ftl-$pkgver.patch
+diff -uprN $dira $dirb > arch-ftl-$pkgver-$pkgrel.patch
+git add arch-ftl-$pkgver-$pkgrel.patch
 git add patchgen
