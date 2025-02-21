@@ -1,6 +1,6 @@
-diff -uprN FTL-6.0/src/CMakeLists.txt FTL-6.0.cust/src/CMakeLists.txt
---- FTL-6.0/src/CMakeLists.txt	2025-02-18 18:19:26.000000000 +0100
-+++ FTL-6.0.cust/src/CMakeLists.txt	2025-02-21 08:27:08.796630758 +0100
+diff -uprN FTL-6.0.1/src/CMakeLists.txt FTL-6.0.1.cust/src/CMakeLists.txt
+--- FTL-6.0.1/src/CMakeLists.txt	2025-02-21 00:07:18.000000000 +0100
++++ FTL-6.0.1.cust/src/CMakeLists.txt	2025-02-21 09:40:13.009823708 +0100
 @@ -67,7 +67,7 @@ endif()
  set(WARN_FLAGS "-Wall -Wextra -Wno-unused-parameter")
  
@@ -10,9 +10,9 @@ diff -uprN FTL-6.0/src/CMakeLists.txt FTL-6.0.cust/src/CMakeLists.txt
                      -Waddress \
                      -Wlogical-op \
                      -Wmissing-field-initializers \
-diff -uprN FTL-6.0/src/config/config.c FTL-6.0.cust/src/config/config.c
---- FTL-6.0/src/config/config.c	2025-02-18 18:19:26.000000000 +0100
-+++ FTL-6.0.cust/src/config/config.c	2025-02-21 08:27:08.805915470 +0100
+diff -uprN FTL-6.0.1/src/config/config.c FTL-6.0.1.cust/src/config/config.c
+--- FTL-6.0.1/src/config/config.c	2025-02-21 00:07:18.000000000 +0100
++++ FTL-6.0.1.cust/src/config/config.c	2025-02-21 09:40:13.010904185 +0100
 @@ -649,7 +649,7 @@ static void initConfig(struct config *co
  
  	// sub-struct dns.rate_limit
@@ -49,9 +49,9 @@ diff -uprN FTL-6.0/src/config/config.c FTL-6.0.cust/src/config/config.c
  	config.files.log.ftl.v.s = config.files.log.ftl.d.s;
  	config.files.log.ftl.c = validate_filepath;
  
-diff -uprN FTL-6.0/src/config/legacy_reader.c FTL-6.0.cust/src/config/legacy_reader.c
---- FTL-6.0/src/config/legacy_reader.c	2025-02-18 18:19:26.000000000 +0100
-+++ FTL-6.0.cust/src/config/legacy_reader.c	2025-02-21 08:27:08.815942728 +0100
+diff -uprN FTL-6.0.1/src/config/legacy_reader.c FTL-6.0.1.cust/src/config/legacy_reader.c
+--- FTL-6.0.1/src/config/legacy_reader.c	2025-02-21 00:07:18.000000000 +0100
++++ FTL-6.0.1.cust/src/config/legacy_reader.c	2025-02-21 09:40:13.020846482 +0100
 @@ -58,7 +58,7 @@ bool getLogFilePathLegacy(struct config
  		return false;
  
@@ -70,15 +70,15 @@ diff -uprN FTL-6.0/src/config/legacy_reader.c FTL-6.0.cust/src/config/legacy_rea
  		conf->files.log.ftl.t = CONF_STRING_ALLOCATED;
  
  		// Test if memory allocation was successful
-diff -uprN FTL-6.0/src/version.c.in FTL-6.0.cust/src/version.c.in
---- FTL-6.0/src/version.c.in	2025-02-18 18:19:26.000000000 +0100
-+++ FTL-6.0.cust/src/version.c.in	2025-02-21 08:27:08.795771700 +0100
+diff -uprN FTL-6.0.1/src/version.c.in FTL-6.0.1.cust/src/version.c.in
+--- FTL-6.0.1/src/version.c.in	2025-02-21 00:07:18.000000000 +0100
++++ FTL-6.0.1.cust/src/version.c.in	2025-02-21 09:40:13.000895236 +0100
 @@ -12,33 +12,33 @@
  
  const char * __attribute__ ((const)) git_version(void)
  {
 -	return "@GIT_VERSION@";
-+	return "v6.0";
++	return "v6.0.1";
  }
  
  const char * __attribute__ ((const)) git_date(void)
@@ -94,7 +94,7 @@ diff -uprN FTL-6.0/src/version.c.in FTL-6.0.cust/src/version.c.in
  const char * __attribute__ ((const)) git_tag(void)
  {
 -	return "@GIT_TAG@";
-+	return "v6.0";
++	return "v6.0.1";
  }
  
  const char * __attribute__ ((const)) git_hash(void)
