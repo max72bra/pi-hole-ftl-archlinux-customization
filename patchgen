@@ -52,8 +52,8 @@ if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: logs paths defaul
 # pid, port and sock default paths
 #sed -i "s|/run/pihole/|/run/pihole-ftl/|w $_ssc" "$dirb"/src/config/config.c
 #if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: pid, port and sock default paths 1" && exit 1 ; fi
-sed -i "s|/run/pihole-FTL.|/run/pihole-ftl/pihole-FTL.|w $_ssc" "$dirb"/src/config/config.c
-if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: pid, port and sock default paths 2" && exit 1 ; fi
+#sed -i "s|/run/pihole-FTL.|/run/pihole-ftl/pihole-FTL.|w $_ssc" "$dirb"/src/config/config.c
+#if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: pid, port and sock default paths 2" && exit 1 ; fi
 #sed -i "s|/run/pihole/|/run/pihole-ftl/|w $_ssc" "$dirb"/tools/socket_client.c
 #if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: pid, port and sock default paths 3" && exit 1 ; fi
 
