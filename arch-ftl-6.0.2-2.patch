@@ -1,6 +1,6 @@
 diff -uprN FTL-6.0.2/src/CMakeLists.txt FTL-6.0.2.cust/src/CMakeLists.txt
 --- FTL-6.0.2/src/CMakeLists.txt	2025-02-21 22:48:20.000000000 +0100
-+++ FTL-6.0.2.cust/src/CMakeLists.txt	2025-02-22 19:04:38.441026725 +0100
++++ FTL-6.0.2.cust/src/CMakeLists.txt	2025-02-22 23:07:04.390086752 +0100
 @@ -67,7 +67,7 @@ endif()
  set(WARN_FLAGS "-Wall -Wextra -Wno-unused-parameter")
  
@@ -12,7 +12,7 @@ diff -uprN FTL-6.0.2/src/CMakeLists.txt FTL-6.0.2.cust/src/CMakeLists.txt
                      -Wmissing-field-initializers \
 diff -uprN FTL-6.0.2/src/config/config.c FTL-6.0.2.cust/src/config/config.c
 --- FTL-6.0.2/src/config/config.c	2025-02-21 22:48:20.000000000 +0100
-+++ FTL-6.0.2.cust/src/config/config.c	2025-02-22 19:04:38.449954721 +0100
++++ FTL-6.0.2.cust/src/config/config.c	2025-02-22 23:07:04.391379467 +0100
 @@ -649,7 +649,7 @@ static void initConfig(struct config *co
  
  	// sub-struct dns.rate_limit
@@ -51,7 +51,7 @@ diff -uprN FTL-6.0.2/src/config/config.c FTL-6.0.2.cust/src/config/config.c
  
 diff -uprN FTL-6.0.2/src/config/legacy_reader.c FTL-6.0.2.cust/src/config/legacy_reader.c
 --- FTL-6.0.2/src/config/legacy_reader.c	2025-02-21 22:48:20.000000000 +0100
-+++ FTL-6.0.2.cust/src/config/legacy_reader.c	2025-02-22 19:04:38.459049332 +0100
++++ FTL-6.0.2.cust/src/config/legacy_reader.c	2025-02-22 23:07:04.392788053 +0100
 @@ -58,7 +58,7 @@ bool getLogFilePathLegacy(struct config
  		return false;
  
@@ -72,7 +72,7 @@ diff -uprN FTL-6.0.2/src/config/legacy_reader.c FTL-6.0.2.cust/src/config/legacy
  		// Test if memory allocation was successful
 diff -uprN FTL-6.0.2/src/version.c.in FTL-6.0.2.cust/src/version.c.in
 --- FTL-6.0.2/src/version.c.in	2025-02-21 22:48:20.000000000 +0100
-+++ FTL-6.0.2.cust/src/version.c.in	2025-02-22 19:04:38.431951204 +0100
++++ FTL-6.0.2.cust/src/version.c.in	2025-02-22 23:07:04.360750293 +0100
 @@ -12,33 +12,33 @@
  
  const char * __attribute__ ((const)) git_version(void)
