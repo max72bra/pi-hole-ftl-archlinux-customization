@@ -1,6 +1,6 @@
 diff -uprN FTL-6.0.4/src/CMakeLists.txt FTL-6.0.4.cust/src/CMakeLists.txt
 --- FTL-6.0.4/src/CMakeLists.txt	2025-03-04 18:22:10.000000000 +0100
-+++ FTL-6.0.4.cust/src/CMakeLists.txt	2025-03-05 18:14:24.215803704 +0100
++++ FTL-6.0.4.cust/src/CMakeLists.txt	2025-03-06 10:42:00.937175381 +0100
 @@ -67,7 +67,7 @@ endif()
  set(WARN_FLAGS "-Wall -Wextra -Wno-unused-parameter")
  
@@ -12,7 +12,7 @@ diff -uprN FTL-6.0.4/src/CMakeLists.txt FTL-6.0.4.cust/src/CMakeLists.txt
                      -Wmissing-field-initializers \
 diff -uprN FTL-6.0.4/src/config/config.c FTL-6.0.4.cust/src/config/config.c
 --- FTL-6.0.4/src/config/config.c	2025-03-04 18:22:10.000000000 +0100
-+++ FTL-6.0.4.cust/src/config/config.c	2025-03-05 18:14:24.216699479 +0100
++++ FTL-6.0.4.cust/src/config/config.c	2025-03-06 10:42:00.937976750 +0100
 @@ -649,7 +649,7 @@ static void initConfig(struct config *co
  
  	// sub-struct dns.rate_limit
@@ -51,7 +51,7 @@ diff -uprN FTL-6.0.4/src/config/config.c FTL-6.0.4.cust/src/config/config.c
  
 diff -uprN FTL-6.0.4/src/config/legacy_reader.c FTL-6.0.4.cust/src/config/legacy_reader.c
 --- FTL-6.0.4/src/config/legacy_reader.c	2025-03-04 18:22:10.000000000 +0100
-+++ FTL-6.0.4.cust/src/config/legacy_reader.c	2025-03-05 18:14:24.226254999 +0100
++++ FTL-6.0.4.cust/src/config/legacy_reader.c	2025-03-06 10:42:00.948226995 +0100
 @@ -58,7 +58,7 @@ bool getLogFilePathLegacy(struct config
  		return false;
  
@@ -72,7 +72,7 @@ diff -uprN FTL-6.0.4/src/config/legacy_reader.c FTL-6.0.4.cust/src/config/legacy
  		// Test if memory allocation was successful
 diff -uprN FTL-6.0.4/src/version.c.in FTL-6.0.4.cust/src/version.c.in
 --- FTL-6.0.4/src/version.c.in	2025-03-04 18:22:10.000000000 +0100
-+++ FTL-6.0.4.cust/src/version.c.in	2025-03-05 18:14:24.214984659 +0100
++++ FTL-6.0.4.cust/src/version.c.in	2025-03-06 10:42:00.936251202 +0100
 @@ -12,33 +12,33 @@
  
  const char * __attribute__ ((const)) git_version(void)
@@ -84,7 +84,7 @@ diff -uprN FTL-6.0.4/src/version.c.in FTL-6.0.4.cust/src/version.c.in
  const char * __attribute__ ((const)) git_date(void)
  {
 -	return "@GIT_DATE@";
-+	return "2025-03-05";
++	return "2025-03-06";
  }
  const char * __attribute__ ((const)) git_branch(void)
  {
