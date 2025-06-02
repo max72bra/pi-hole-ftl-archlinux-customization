@@ -1,0 +1,116 @@
+diff -uprN FTL-6.2.1/src/CMakeLists.txt FTL-6.2.1.cust/src/CMakeLists.txt
+--- FTL-6.2.1/src/CMakeLists.txt	2025-05-30 23:56:39.000000000 +0200
++++ FTL-6.2.1.cust/src/CMakeLists.txt	2025-06-02 08:29:55.275553642 +0200
+@@ -67,7 +67,7 @@ endif()
+ set(WARN_FLAGS "-Wall -Wextra -Wno-unused-parameter")
+ 
+ # Extra warning flags we apply only to the FTL part of the code (used not for foreign code such as dnsmasq and SQLite3)
+-set(EXTRAWARN_GCC6 "-Werror \
++set(EXTRAWARN_GCC6 " \
+                     -Waddress \
+                     -Wlogical-op \
+                     -Wmissing-field-initializers \
+diff -uprN FTL-6.2.1/src/config/config.c FTL-6.2.1.cust/src/config/config.c
+--- FTL-6.2.1/src/config/config.c	2025-05-30 23:56:39.000000000 +0200
++++ FTL-6.2.1.cust/src/config/config.c	2025-06-02 08:29:55.276647911 +0200
+@@ -649,7 +649,7 @@ static void initConfig(struct config *co
+ 
+ 	// sub-struct dns.rate_limit
+ 	conf->dns.rateLimit.count.k = "dns.rateLimit.count";
+-	conf->dns.rateLimit.count.h = "Rate-limited queries are answered with a REFUSED reply and not further processed by FTL.\n The default settings for FTL's rate-limiting are to permit no more than 1000 queries in 60 seconds. Both numbers can be customized independently. It is important to note that rate-limiting is happening on a per-client basis. Other clients can continue to use FTL while rate-limited clients are short-circuited at the same time.\n For this setting, both numbers, the maximum number of queries within a given time, and the length of the time interval (seconds) have to be specified. For instance, if you want to set a rate limit of 1 query per hour, the option should look like dns.rateLimit.count=1 and dns.rateLimit.interval=3600. The time interval is relative to when FTL has finished starting (start of the daemon + possible delay by DELAY_STARTUP) then it will advance in steps of the rate-limiting interval. If a client reaches the maximum number of queries it will be blocked until the end of the current interval. This will be logged to /var/log/pihole/FTL.log, e.g. Rate-limiting 10.0.1.39 for at least 44 seconds. If the client continues to send queries while being blocked already and this number of queries during the blocking exceeds the limit the client will continue to be blocked until the end of the next interval (FTL.log will contain lines like Still rate-limiting 10.0.1.39 as it made additional 5007 queries). As soon as the client requests less than the set limit, it will be unblocked (Ending rate-limitation of 10.0.1.39).\n Rate-limiting may be disabled altogether by setting both values to zero (this results in the same behavior as before FTL v5.7).\n How many queries are permitted...";
++	conf->dns.rateLimit.count.h = "Rate-limited queries are answered with a REFUSED reply and not further processed by FTL.\n The default settings for FTL's rate-limiting are to permit no more than 1000 queries in 60 seconds. Both numbers can be customized independently. It is important to note that rate-limiting is happening on a per-client basis. Other clients can continue to use FTL while rate-limited clients are short-circuited at the same time.\n For this setting, both numbers, the maximum number of queries within a given time, and the length of the time interval (seconds) have to be specified. For instance, if you want to set a rate limit of 1 query per hour, the option should look like dns.rateLimit.count=1 and dns.rateLimit.interval=3600. The time interval is relative to when FTL has finished starting (start of the daemon + possible delay by DELAY_STARTUP) then it will advance in steps of the rate-limiting interval. If a client reaches the maximum number of queries it will be blocked until the end of the current interval. This will be logged to /run/log/pihole/FTL.log, e.g. Rate-limiting 10.0.1.39 for at least 44 seconds. If the client continues to send queries while being blocked already and this number of queries during the blocking exceeds the limit the client will continue to be blocked until the end of the next interval (FTL.log will contain lines like Still rate-limiting 10.0.1.39 as it made additional 5007 queries). As soon as the client requests less than the set limit, it will be unblocked (Ending rate-limitation of 10.0.1.39).\n Rate-limiting may be disabled altogether by setting both values to zero (this results in the same behavior as before FTL v5.7).\n How many queries are permitted...";
+ 	conf->dns.rateLimit.count.t = CONF_UINT;
+ 	conf->dns.rateLimit.count.d.ui = 1000;
+ 	conf->dns.rateLimit.count.c = validate_stub; // Only type-based checking
+@@ -1282,7 +1282,7 @@ static void initConfig(struct config *co
+ 	conf->files.log.webserver.a = cJSON_CreateStringReference("<any writable file>");
+ 	conf->files.log.webserver.t = CONF_STRING;
+ 	conf->files.log.webserver.f = FLAG_RESTART_FTL;
+-	conf->files.log.webserver.d.s = (char*)"/var/log/pihole/webserver.log";
++	conf->files.log.webserver.d.s = (char*)"/run/log/pihole/webserver.log";
+ 	conf->files.log.webserver.c = validate_filepath;
+ 
+ 	conf->files.log.dnsmasq.k = "files.log.dnsmasq";
+@@ -1290,7 +1290,7 @@ static void initConfig(struct config *co
+ 	conf->files.log.dnsmasq.a = cJSON_CreateStringReference("<any writable file>");
+ 	conf->files.log.dnsmasq.t = CONF_STRING;
+ 	conf->files.log.dnsmasq.f = FLAG_RESTART_FTL;
+-	conf->files.log.dnsmasq.d.s = (char*)"/var/log/pihole/pihole.log";
++	conf->files.log.dnsmasq.d.s = (char*)"/run/log/pihole/pihole.log";
+ 	conf->files.log.dnsmasq.c = validate_filepath_dash;
+ 
+ 
+@@ -1834,7 +1834,7 @@ bool getLogFilePath(void)
+ 	config.files.log.ftl.h = "The location of FTL's log file";
+ 	config.files.log.ftl.a = cJSON_CreateStringReference("<any writable file>");
+ 	config.files.log.ftl.t = CONF_STRING;
+-	config.files.log.ftl.d.s = (char*)"/var/log/pihole/FTL.log";
++	config.files.log.ftl.d.s = (char*)"/run/log/pihole/FTL.log";
+ 	config.files.log.ftl.v.s = config.files.log.ftl.d.s;
+ 	config.files.log.ftl.c = validate_filepath;
+ 
+diff -uprN FTL-6.2.1/src/config/legacy_reader.c FTL-6.2.1.cust/src/config/legacy_reader.c
+--- FTL-6.2.1/src/config/legacy_reader.c	2025-05-30 23:56:39.000000000 +0200
++++ FTL-6.2.1.cust/src/config/legacy_reader.c	2025-06-02 08:29:55.283397352 +0200
+@@ -58,7 +58,7 @@ bool getLogFilePathLegacy(struct config
+ 		return false;
+ 
+ 	// Read LOGFILE value if available
+-	// defaults to: "/var/log/pihole/FTL.log"
++	// defaults to: "/run/log/pihole/FTL.log"
+ 	char *buffer = parseFTLconf(fp, "LOGFILE");
+ 	char *val_buffer = NULL;
+ 
+@@ -71,7 +71,7 @@ bool getLogFilePathLegacy(struct config
+ 			free(conf->files.log.ftl.v.s);
+ 
+ 		// Use standard path if no custom path was obtained from the config file
+-		conf->files.log.ftl.v.s = strdup("/var/log/pihole/FTL.log");
++		conf->files.log.ftl.v.s = strdup("/run/log/pihole/FTL.log");
+ 		conf->files.log.ftl.t = CONF_STRING_ALLOCATED;
+ 
+ 		// Test if memory allocation was successful
+diff -uprN FTL-6.2.1/src/version.c.in FTL-6.2.1.cust/src/version.c.in
+--- FTL-6.2.1/src/version.c.in	2025-05-30 23:56:39.000000000 +0200
++++ FTL-6.2.1.cust/src/version.c.in	2025-06-02 08:29:55.274490643 +0200
+@@ -12,33 +12,33 @@
+ 
+ const char * __attribute__ ((const)) git_version(void)
+ {
+-	return "@GIT_VERSION@";
++	return "v6.2.1";
+ }
+ 
+ const char * __attribute__ ((const)) git_date(void)
+ {
+-	return "@GIT_DATE@";
++	return "2025-06-02";
+ }
+ const char * __attribute__ ((const)) git_branch(void)
+ {
+-	return "@GIT_BRANCH@";
++	return "master";
+ }
+ const char * __attribute__ ((const)) git_tag(void)
+ {
+-	return "@GIT_TAG@";
++	return "v6.2.1";
+ }
+ 
+ const char * __attribute__ ((const)) git_hash(void)
+ {
+-	return "@GIT_HASH@";
++	return "builtfromreleasetarball";
+ }
+ 
+ const char * __attribute__ ((const)) ftl_arch(void)
+ {
+-	return "@FTL_ARCH@";
++	return "currentarch";
+ }
+ 
+ const char * __attribute__ ((const)) ftl_cc(void)
+ {
+-	return "@FTL_CC@";
++	return "currentcompiler";
+ }
