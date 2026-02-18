@@ -1,6 +1,6 @@
 diff -uprN FTL-6.5/src/CMakeLists.txt FTL-6.5.cust/src/CMakeLists.txt
 --- FTL-6.5/src/CMakeLists.txt	2026-02-17 21:20:12.000000000 +0100
-+++ FTL-6.5.cust/src/CMakeLists.txt	2026-02-17 22:16:12.389428331 +0100
++++ FTL-6.5.cust/src/CMakeLists.txt	2026-02-18 08:41:48.873671268 +0100
 @@ -69,7 +69,7 @@ endif()
  set(WARN_FLAGS "-Wall -Wextra -Wno-unused-parameter")
  
@@ -12,7 +12,7 @@ diff -uprN FTL-6.5/src/CMakeLists.txt FTL-6.5.cust/src/CMakeLists.txt
                      -Wmissing-field-initializers \
 diff -uprN FTL-6.5/src/config/config.c FTL-6.5.cust/src/config/config.c
 --- FTL-6.5/src/config/config.c	2026-02-17 21:20:12.000000000 +0100
-+++ FTL-6.5.cust/src/config/config.c	2026-02-17 22:16:12.398329823 +0100
++++ FTL-6.5.cust/src/config/config.c	2026-02-18 08:41:48.874659258 +0100
 @@ -757,7 +757,7 @@ void initConfig(struct config *conf)
  
  	// sub-struct dns.rate_limit
@@ -51,7 +51,7 @@ diff -uprN FTL-6.5/src/config/config.c FTL-6.5.cust/src/config/config.c
  	config.files.log.ftl.f = FLAG_FTL_LOG;
 diff -uprN FTL-6.5/src/config/legacy_reader.c FTL-6.5.cust/src/config/legacy_reader.c
 --- FTL-6.5/src/config/legacy_reader.c	2026-02-17 21:20:12.000000000 +0100
-+++ FTL-6.5.cust/src/config/legacy_reader.c	2026-02-17 22:16:12.407492957 +0100
++++ FTL-6.5.cust/src/config/legacy_reader.c	2026-02-18 08:41:48.884617102 +0100
 @@ -58,7 +58,7 @@ bool getLogFilePathLegacy(struct config
  		return false;
  
@@ -72,7 +72,7 @@ diff -uprN FTL-6.5/src/config/legacy_reader.c FTL-6.5.cust/src/config/legacy_rea
  		// Test if memory allocation was successful
 diff -uprN FTL-6.5/src/version.c.in FTL-6.5.cust/src/version.c.in
 --- FTL-6.5/src/version.c.in	2026-02-17 21:20:12.000000000 +0100
-+++ FTL-6.5.cust/src/version.c.in	2026-02-17 22:16:12.380613057 +0100
++++ FTL-6.5.cust/src/version.c.in	2026-02-18 08:41:48.872725897 +0100
 @@ -12,33 +12,33 @@
  
  const char * __attribute__ ((const)) git_version(void)
@@ -84,7 +84,7 @@ diff -uprN FTL-6.5/src/version.c.in FTL-6.5.cust/src/version.c.in
  const char * __attribute__ ((const)) git_date(void)
  {
 -	return "@GIT_DATE@";
-+	return "2026-02-17";
++	return "2026-02-18";
  }
  const char * __attribute__ ((const)) git_branch(void)
  {
@@ -114,3 +114,24 @@ diff -uprN FTL-6.5/src/version.c.in FTL-6.5.cust/src/version.c.in
 -	return "@FTL_CC@";
 +	return "currentcompiler";
  }
+diff -uprN FTL-6.5/src/webserver/x509.c FTL-6.5.cust/src/webserver/x509.c
+--- FTL-6.5/src/webserver/x509.c	2026-02-17 21:20:12.000000000 +0100
++++ FTL-6.5.cust/src/webserver/x509.c	2026-02-18 08:41:48.831420842 +0100
+@@ -229,7 +229,7 @@ bool generate_certificate(const char* ce
+ 	mbedtls_x509write_crt_set_basic_constraints(&ca_cert, 1, -1);
+ 
+ 	// Export CA in PEM format
+-	if((ret = mbedtls_x509write_crt_pem(&ca_cert, ca_buffer, sizeof(ca_buffer))) != 0)
++	if((ret = mbedtls_x509write_crt_pem(if((ret = mbedtls_x509write_crt_pem(&ca_cert, ca_buffer, sizeof(ca_buffer))) != 0)ca_cert, ca_buffer, sizeof(ca_buffer), mbedtls_ctr_drbg_random, if((ret = mbedtls_x509write_crt_pem(&ca_cert, ca_buffer, sizeof(ca_buffer))) != 0)ctr_drbg)) != 0)
+ 	{
+ 		printf("ERROR: mbedtls_x509write_crt_pem (CA) returned %d\n", ret);
+ 		return false;
+@@ -442,7 +442,7 @@ enum cert_check read_certificate(const c
+ 	mbedtls_pk_context key;
+ 	mbedtls_pk_init(&key);
+ 	bool has_key = true;
+-	int rc = mbedtls_pk_parse_keyfile(&key, certfile, NULL);
++	int rc = mbedtls_pk_parse_keyfile(int rc = mbedtls_pk_parse_keyfile(&key, certfile, NULL);key, certfile, NULL, mbedtls_ctr_drbg_random, int rc = mbedtls_pk_parse_keyfile(&key, certfile, NULL);ctr_drbg);
+ 	if (rc != 0)
+ 	{
+ 		log_info("No key found");

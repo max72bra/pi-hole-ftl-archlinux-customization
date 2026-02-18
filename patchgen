@@ -15,6 +15,12 @@ wget -q -nc $source
 tar xf v$pkgver.tar.gz
 cp -a $dira $dirb
 
+# mbedtls3
+sed -i "s|if((ret = mbedtls_x509write_crt_pem(&ca_cert, ca_buffer, sizeof(ca_buffer))) != 0)|if((ret = mbedtls_x509write_crt_pem(&ca_cert, ca_buffer, sizeof(ca_buffer), mbedtls_ctr_drbg_random, &ctr_drbg)) != 0)|w $_ssc" "$dirb"/src/webserver/x509.c
+if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> gcc 9+ compile and link errors, again... 1" && exit 1 ; fi
+sed -i "s|int rc = mbedtls_pk_parse_keyfile(&key, certfile, NULL);|int rc = mbedtls_pk_parse_keyfile(&key, certfile, NULL, mbedtls_ctr_drbg_random, &ctr_drbg);|w $_ssc" "$dirb"/src/webserver/x509.c
+if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> gcc 9+ compile and link errors, again... 1" && exit 1 ; fi
+
 # git descriptions setup
 sed -i "s|@GIT_VERSION@|v$pkgver|w $_ssc" "$dirb"/src/version.c.in
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: git descriptions setup 1" && exit 1 ; fi
