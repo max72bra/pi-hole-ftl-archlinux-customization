@@ -16,10 +16,12 @@ tar xf v$pkgver.tar.gz
 cp -a $dira $dirb
 
 # mbedtls3
-sed -i "s|if((ret = mbedtls_x509write_crt_pem(&ca_cert, ca_buffer, sizeof(ca_buffer))) != 0)|if((ret = mbedtls_x509write_crt_pem(&ca_cert, ca_buffer, sizeof(ca_buffer), mbedtls_ctr_drbg_random, &ctr_drbg)) != 0)|w $_ssc" "$dirb"/src/webserver/x509.c
-if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> gcc 9+ compile and link errors, again... 1" && exit 1 ; fi
-sed -i "s|int rc = mbedtls_pk_parse_keyfile(&key, certfile, NULL);|int rc = mbedtls_pk_parse_keyfile(&key, certfile, NULL, mbedtls_ctr_drbg_random, &ctr_drbg);|w $_ssc" "$dirb"/src/webserver/x509.c
-if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> gcc 9+ compile and link errors, again... 1" && exit 1 ; fi
+sed -i "s/mbedtls_x509write_crt_pem(&ca_cert, ca_buffer, sizeof(ca_buffer))/mbedtls_x509write_crt_pem(\&ca_cert, ca_buffer, sizeof(ca_buffer), mbedtls_ctr_drbg_random, \&ctr_drbg)/w $_ssc" "$dirb"/src/webserver/x509.c
+if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> mbedtls3 1" && exit 1 ; fi
+sed -i "s/mbedtls_x509write_crt_pem(&server_cert, cert_buffer, sizeof(cert_buffer))/mbedtls_x509write_crt_pem(\&server_cert, cert_buffer, sizeof(cert_buffer), mbedtls_ctr_drbg_random, \&ctr_drbg)/w $_ssc" "$dirb"/src/webserver/x509.c
+if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> mbedtls3 2" && exit 1 ; fi
+sed -i "s/mbedtls_pk_parse_keyfile(&key, certfile, NULL)/mbedtls_pk_parse_keyfile(\&key, certfile, NULL, mbedtls_ctr_drbg_random, \&ctr_drbg)/w $_ssc" "$dirb"/src/webserver/x509.c
+if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> mbedtls3 3" && exit 1 ; fi
 
 # git descriptions setup
 sed -i "s|@GIT_VERSION@|v$pkgver|w $_ssc" "$dirb"/src/version.c.in
